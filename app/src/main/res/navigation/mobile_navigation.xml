@@ -7,19 +7,25 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.bsc_bandarlampungsportcenter.ui.home.HomeFragment"
+        android:name="com.bsc_bandarlampungsportcenter.ui.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.bsc_bandarlampungsportcenter.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_field"
+        android:name="com.bsc_bandarlampungsportcenter.ui.FieldFragment"
+        android:label="@string/title_field"
+        tools:layout="@layout/fragment_field" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.bsc_bandarlampungsportcenter.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_transaction"
+        android:name="com.bsc_bandarlampungsportcenter.ui.TransactionFragment"
+        android:label="@string/title_transaction"
+        tools:layout="@layout/fragment_transaction" />
+
+    <fragment
+        android:id="@+id/navigation_account"
+        android:name="com.bsc_bandarlampungsportcenter.ui.AccountFragment"
+        android:label="@string/title_account"
+        tools:layout="@layout/fragment_account" />
 </navigation>

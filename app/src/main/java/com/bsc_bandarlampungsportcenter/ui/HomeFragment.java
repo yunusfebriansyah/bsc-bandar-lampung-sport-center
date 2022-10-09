@@ -1,4 +1,4 @@
-package com.bsc_bandarlampungsportcenter.ui.home;
+package com.bsc_bandarlampungsportcenter.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,23 +9,20 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.arch.lifecycle.ViewModelProvider;
 
+import com.bsc_bandarlampungsportcenter.R;
 import com.bsc_bandarlampungsportcenter.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
 
   private FragmentHomeBinding binding;
 
+  View vw;
+
   public View onCreateView(@NonNull LayoutInflater inflater,
                            ViewGroup container, Bundle savedInstanceState) {
-    HomeViewModel homeViewModel =
-            new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(HomeViewModel.class);
+    vw = inflater.inflate(R.layout.fragment_home, container, false);
 
-    binding = FragmentHomeBinding.inflate(inflater, container, false);
-    View root = binding.getRoot();
-
-    final TextView textView = binding.textHome;
-    homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-    return root;
+    return vw;
   }
 
   @Override

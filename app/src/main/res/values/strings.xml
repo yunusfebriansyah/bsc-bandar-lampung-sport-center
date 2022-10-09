@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">BSC - Bandar Lampung Sport Center</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_field">Lapangan</string>
+    <string name="title_transaction">Transaksi</string>
+    <string name="title_account">Akun</string>
+
+
 </resources>
