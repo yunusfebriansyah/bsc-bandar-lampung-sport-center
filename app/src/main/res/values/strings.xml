@@ -4,6 +4,18 @@
     <string name="title_field">Lapangan</string>
     <string name="title_transaction">Transaksi</string>
     <string name="title_account">Akun</string>
+    
+    <!-- Title Section -->
+    <string name="bsc">BSC (Bandar Lampung Sport Center) Futsal</string>
+    <string name="link_google_map">Link Google Map</string>
+    <string name="price_today">Harga Sewa Perjam Hari Ini</string>
+    <string name="field_list">Daftar Lapangan</string>
+    <string name="list_transaction">Daftar Transaksi</string>
+
+    <!-- Content -->
+    <string name="bsc_description">Merupakan salah satu lapangan futsal yang berada di Kota Bandar Lampung. Tempat ini menyediakan lapangan dengan standar mengukuti aturan futsal rules, mulai dari garis lapangan, luas lapangan futsal dan lainnya. Lapangan tersedia dengan kualitas terbaik dengan rumput sintetis, dilengkapi pula bola futsal / futsal ball hingga mini kantin. Anda hanya perlu membawa peralatan futsal Anda (equipment). berlokasi di Jl. Jati, Tj. Gading, Tj. Karang Tim. Kota Bandar Lampung.</string>
+    <string name="google_map">https://goo.gl/maps/6pft7dPAeEtsFMMR8</string>
+    <string name="price">Rp.100.000</string>
 
 
 </resources>
