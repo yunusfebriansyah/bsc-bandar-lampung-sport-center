@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FieldDetailActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingHorizontal="@dimen/padding_horizontal_content"
+        android:scrollbars="none">
+
+        <LinearLayout
+            style="@style/base_container_linearlayout">
+
+            <android.support.v7.widget.CardView
+                style="@style/card_for_image_view">
+                <ImageView
+                    android:id="@+id/photo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/hero"
+                    android:contentDescription="@string/app_name"
+                    android:adjustViewBounds="true"/>
+            </android.support.v7.widget.CardView>
+
+            <TextView
+                android:id="@+id/id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ID"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/photo_360"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ID"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/name"
+                style="@style/section_title"
+                android:text="@string/bsc"/>
+
+            <TextView
+                android:id="@+id/description"
+                style="@style/plain_text"
+                android:text="@string/bsc_description"
+                android:layout_marginBottom="20dp"/>
+
+            <Button
+                android:id="@+id/see_360"
+                style="@style/button_primary_border"
+                android:layout_width="match_parent"
+                android:text="@string/see_photo_360"/>
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>
