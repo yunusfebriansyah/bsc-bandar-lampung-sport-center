@@ -5,7 +5,7 @@
     <dimen name="margin_top_fragment">20dp</dimen>
     <dimen name="padding_horizontal_content">20dp</dimen>
     <dimen name="margin_bottom_for_linearlayout">100dp</dimen>
-    <dimen name="button_text_size">12sp</dimen>
+    <dimen name="button_text_size">14sp</dimen>
     <dimen name="button_height">35dp</dimen>
 
 
