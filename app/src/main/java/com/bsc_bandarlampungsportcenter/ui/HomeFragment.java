@@ -13,6 +13,7 @@ import android.arch.lifecycle.ViewModelProvider;
 
 import com.bsc_bandarlampungsportcenter.R;
 import com.bsc_bandarlampungsportcenter.databinding.FragmentHomeBinding;
+import com.bsc_bandarlampungsportcenter.session.Price;
 
 public class HomeFragment extends Fragment {
 
@@ -33,6 +34,8 @@ public class HomeFragment extends Fragment {
       intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse(txtLinkGoogleMap.getText().toString()));
       startActivity(intent);
     });
+
+    txtPrice.setText(String.valueOf(Price.getPriceMoney()));
 
     return vw;
   }

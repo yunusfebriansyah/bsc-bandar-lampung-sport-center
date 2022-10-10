@@ -10,6 +10,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.bsc_bandarlampungsportcenter.databinding.ActivityMainBinding;
+import com.bsc_bandarlampungsportcenter.session.Price;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
 
     // hide action bar
     getSupportActionBar().hide();
+
+    Price.setPrice();
 
   }
 

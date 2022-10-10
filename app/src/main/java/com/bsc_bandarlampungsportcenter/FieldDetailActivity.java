@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,8 +30,7 @@ public class FieldDetailActivity extends AppCompatActivity {
   Bundle bundle;
   ImageView photo;
   TextView txtId, txtName, txtDescription, txtPhoto360;
-
-  List<FieldModel> list_field = new ArrayList<>();
+  Button btnSee360;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +43,7 @@ public class FieldDetailActivity extends AppCompatActivity {
     txtPhoto360 = findViewById(R.id.photo_360);
     txtName = findViewById(R.id.name);
     txtDescription = findViewById(R.id.description);
+    btnSee360 = findViewById(R.id.btn_see_360);
 
     bundle = getIntent().getExtras();
     String id = String.valueOf(bundle.get("id"));
@@ -76,8 +77,7 @@ public class FieldDetailActivity extends AppCompatActivity {
       @Override
       public void onResponse(Call<ResponseModelField> call, Response<ResponseModelField> response) {
         //  tampilkan data ke dalam list
-        list_field = response.body().getData();
-        FieldModel data = list_field.get(0);
+        FieldModel data = response.body().getData().get(0);
         Picasso.get().load(RetroServer.getBASE_URL_FILE() + String.valueOf(data.getPhoto())).into(photo);
         txtId.setText(String.valueOf(data.getId()));
         txtPhoto360.setText(RetroServer.getBASE_URL_FILE() + data.getPhoto_360());
