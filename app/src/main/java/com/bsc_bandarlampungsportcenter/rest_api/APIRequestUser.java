@@ -30,4 +30,13 @@ public interface APIRequestUser {
       @Field("password") String password
   );
 
+  @FormUrlEncoded
+  @POST("user/edit-profile/{id}?_method=PUT")
+  Call<ResponseModelUser> editProfile(
+      @Path("id") String id,
+      @Field("name") String name,
+      @Field("username") String username,
+      @Field("email") String email
+  );
+
 }

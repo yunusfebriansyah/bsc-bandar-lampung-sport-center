@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bsc_bandarlampungsportcenter.DBConfig;
+import com.bsc_bandarlampungsportcenter.EditProfileActivity;
 import com.bsc_bandarlampungsportcenter.FieldDetailActivity;
 import com.bsc_bandarlampungsportcenter.LoginActivity;
 import com.bsc_bandarlampungsportcenter.R;
@@ -46,7 +47,7 @@ public class AccountFragment extends Fragment {
   TextView txtName, txtUsername, txtEmail, txtCountSuccess, txtCountPending, txtCountFailed;
   ImageView photoProfile;
 
-  Button btnChangePassword, btnLogout;
+  Button btnChangePassword, btnLogout, btnChangeAccount;
 
   public View onCreateView(@NonNull LayoutInflater inflater,
                            ViewGroup container, Bundle savedInstanceState) {
@@ -62,7 +63,13 @@ public class AccountFragment extends Fragment {
     txtCountFailed = vw.findViewById(R.id.count_failed);
 
     btnChangePassword = vw.findViewById(R.id.btn_change_password);
+    btnChangeAccount = vw.findViewById(R.id.btn_edit_profile);
     btnLogout = vw.findViewById(R.id.btn_logout);
+
+    btnChangeAccount.setOnClickListener(view -> {
+      intent = new Intent(getActivity(), EditProfileActivity.class);
+      startActivity(intent);
+    });
 
     btnLogout.setOnClickListener( view -> {
       db = config.getReadableDatabase();
@@ -77,6 +84,12 @@ public class AccountFragment extends Fragment {
 
     tampilData(User.getUserId());
     return vw;
+  }
+
+  @Override
+  public void onResume() {
+    tampilData(User.getUserId());
+    super.onResume();
   }
 
   void tampilData (String id)

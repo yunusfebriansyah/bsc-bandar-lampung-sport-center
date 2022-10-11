@@ -29,10 +29,13 @@
     <string name="change_password">Ubah Password</string>
     <string name="logout">Logout</string>
     <string name="cancel_booking">Batalkan Sewa</string>
+    <string name="add">Tambah</string>
+    <string name="change">Ubah</string>
 
     <!-- Heading text -->
     <string name="register">Daftar</string>
     <string name="login">Login</string>
+    <string name="edit_profile">Edit Profile</string>
 
     <!-- Label text -->
     <string name="name">Nama</string>
@@ -60,9 +63,9 @@
     <!-- Link text -->
     <string name="to_login">Sudah punya akun?</string>
     <string name="to_register">Belum punya akun?</string>
-    
+
     <!-- Button small text -->
-    <string name="edit_profile">Ubah data akun</string>
+    <string name="edit_account">Ubah data akun</string>
 
 
 </resources>

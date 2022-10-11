@@ -64,12 +64,18 @@
                     <Button
                         android:id="@+id/btn_edit_profile"
                         style="@style/button_small_primary_border"
-                        android:text="@string/edit_profile"
+                        android:text="@string/edit_account"
                         android:layout_marginTop="2dp"/>
 
                 </LinearLayout>
 
             </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_change_photo"
+                style="@style/button_small_primary"
+                android:text="Ganti foto"
+                android:layout_marginTop="10dp"/>
 
             <TextView
                 style="@style/section_title"
