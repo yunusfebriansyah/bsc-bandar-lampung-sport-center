@@ -29,9 +29,6 @@ import retrofit2.Response;
 
 public class RegisterActivity extends AppCompatActivity {
 
-  DBConfig config;
-  SQLiteDatabase db;
-  Cursor cursor;
   List<UserModel> listData = new ArrayList<>();
 
   Intent intent;
@@ -45,18 +42,6 @@ public class RegisterActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_register);
     getSupportActionBar().hide();
-
-    config = new DBConfig(this);
-
-    db = config.getReadableDatabase();
-    cursor = db.rawQuery("SELECT * FROM tbl_user",null);
-    cursor.moveToFirst();
-
-    if(cursor.getCount() == 1) {
-      intent = new Intent(RegisterActivity.this, MainActivity.class);
-      startActivity(intent);
-      finish();
-    }
 
     edtName = findViewById(R.id.name);
     edtUsername = findViewById(R.id.username);

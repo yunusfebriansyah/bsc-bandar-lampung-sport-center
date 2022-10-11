@@ -35,7 +35,7 @@ public class HomeFragment extends Fragment {
       startActivity(intent);
     });
 
-    txtPrice.setText(String.valueOf(Price.getPriceMoney()));
+    txtPrice.setText(String.valueOf(Price.getPriceMoney(getActivity())));
 
     return vw;
   }

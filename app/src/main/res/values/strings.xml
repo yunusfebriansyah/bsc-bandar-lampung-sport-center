@@ -51,11 +51,18 @@
     <string name="booking_price">Biaya sewa</string>
     <string name="discon">Diskon</string>
     <string name="price_total">Total biaya sewa</string>
+    <string name="your_transaction">Transaksi Kamu</string>
+    <string name="success">sukses</string>
+    <string name="pending">pending</string>
+    <string name="failed">gagal</string>
 
 
     <!-- Link text -->
     <string name="to_login">Sudah punya akun?</string>
     <string name="to_register">Belum punya akun?</string>
+    
+    <!-- Button small text -->
+    <string name="edit_profile">Ubah data akun</string>
 
 
 </resources>

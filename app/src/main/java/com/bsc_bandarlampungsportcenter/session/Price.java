@@ -1,6 +1,10 @@
 package com.bsc_bandarlampungsportcenter.session;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.util.Log;
+
+import com.bsc_bandarlampungsportcenter.FieldDetailActivity;
 import com.bsc_bandarlampungsportcenter.rest_api.APIRequestPrice;
 import com.bsc_bandarlampungsportcenter.rest_api.PriceModel;
 import com.bsc_bandarlampungsportcenter.rest_api.ResponseModelPrice;
@@ -18,19 +22,29 @@ public class Price {
 
   private static int priceToday = 0;
 
-  public static int getPrice() {
-    setPrice();
+  public static int getPrice(Context ctx) {
+    setPrice(ctx);
     return priceToday;
   }
 
-  public static String getPriceMoney()
+  public static String getPriceMoney(Context ctx)
   {
-    setPrice();
+    setPrice(ctx);
     String money = "Rp. " + NumberFormat.getInstance().format(priceToday);
     return money;
   }
 
-  public static void setPrice() {
+  public static void setPrice(Context ctx) {
+    //  deklarasi variabel komponen "Progress Dialog"
+    ProgressDialog pd;
+    //  setup progress dialog
+    pd = new ProgressDialog(ctx);
+    //  progress dialog tidak dapat di cancel
+    pd.setCancelable(false);
+    //  isi teks progress dialog
+    pd.setMessage("Mohon Tunggu ...");
+    //  tampilkan progress dialog
+    pd.show();
     APIRequestPrice ardData = RetroServer.konekRetrofit().create(APIRequestPrice.class);
     SimpleDateFormat formatter = new SimpleDateFormat("u");
     Date date = new Date();
@@ -46,11 +60,13 @@ public class Price {
         //  tampilkan data ke dalam list
         PriceModel data = response.body().getData().get(0);
         Price.priceToday = data.getPrice();
+        pd.dismiss();
       }
       @Override
       public void onFailure(Call<ResponseModelPrice> call, Throwable t) {
         //  tampilkan pesan
         Log.e("error", t.getMessage());
+        pd.dismiss();
       }
     });
   }

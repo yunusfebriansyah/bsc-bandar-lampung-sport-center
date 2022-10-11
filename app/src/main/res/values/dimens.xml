@@ -7,6 +7,8 @@
     <dimen name="margin_bottom_for_linearlayout">100dp</dimen>
     <dimen name="button_text_size">14sp</dimen>
     <dimen name="button_height">35dp</dimen>
+    <dimen name="button_small_height">25dp</dimen>
+    <dimen name="plain_text">12dp</dimen>
 
 
 </resources>

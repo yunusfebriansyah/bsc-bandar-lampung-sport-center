@@ -1,5 +1,7 @@
 package com.bsc_bandarlampungsportcenter;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -11,14 +13,20 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.bsc_bandarlampungsportcenter.databinding.ActivityMainBinding;
 import com.bsc_bandarlampungsportcenter.session.Price;
+import com.bsc_bandarlampungsportcenter.session.User;
 
 public class MainActivity extends AppCompatActivity {
 
   private ActivityMainBinding binding;
 
+  DBConfig config;
+  SQLiteDatabase db;
+  Cursor cursor;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    config = new DBConfig(this);
 
     binding = ActivityMainBinding.inflate(getLayoutInflater());
     setContentView(binding.getRoot());
@@ -35,8 +43,11 @@ public class MainActivity extends AppCompatActivity {
 
     // hide action bar
     getSupportActionBar().hide();
-
-    Price.setPrice();
+    db = config.getReadableDatabase();
+    cursor = db.rawQuery("SELECT * FROM tbl_user",null);
+    cursor.moveToFirst();
+    User.setUserId(cursor.getString(0));
+    User.setIsAdmin(cursor.getString(1));
 
   }
 

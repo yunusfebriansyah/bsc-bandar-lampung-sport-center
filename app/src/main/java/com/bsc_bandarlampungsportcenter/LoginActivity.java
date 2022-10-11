@@ -19,6 +19,7 @@ import com.bsc_bandarlampungsportcenter.rest_api.ResponseModelUser;
 import com.bsc_bandarlampungsportcenter.rest_api.RetroServer;
 import com.bsc_bandarlampungsportcenter.rest_api.UserModel;
 import com.bsc_bandarlampungsportcenter.session.Price;
+import com.bsc_bandarlampungsportcenter.session.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,6 +67,9 @@ public class LoginActivity extends AppCompatActivity {
     linkToRegister = findViewById(R.id.to_register);
 
     linkToRegister.setOnClickListener(view -> {
+      intent = new Intent(LoginActivity.this, RegisterActivity.class);
+      intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+      startActivity(intent);
       finish();
     });
 
@@ -117,15 +121,16 @@ public class LoginActivity extends AppCompatActivity {
           pd.dismiss();
           intent = new Intent(LoginActivity.this, MainActivity.class);
           intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-          Price.setPrice();
+          User.setUserId(String.valueOf(userId));
+          User.setIsAdmin(String.valueOf(isAdmin));
+          Price.setPrice(LoginActivity.this);
+          pd.dismiss();
           startActivity(intent);
           finish();
         }else{
+          pd.dismiss();
           Toast.makeText(LoginActivity.this, "Email atau password salah!.", Toast.LENGTH_SHORT).show();
         }
-
-        //  tutup progress dialog
-        pd.dismiss();
       }
       //  ketika data gagal diambil
       @Override
