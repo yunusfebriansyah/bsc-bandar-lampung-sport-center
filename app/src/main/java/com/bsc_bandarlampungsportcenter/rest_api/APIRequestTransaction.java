@@ -26,5 +26,19 @@ public interface APIRequestTransaction {
       @Field("status") String status
   );
 
+  @FormUrlEncoded
+  @POST("transactions")
+  Call<ResponseModelTransaction> booking(
+      @Field("user_id") String user_id,
+      @Field("field_id") String field_id,
+      @Field("start_at") String start_at,
+      @Field("end_at") String end_at,
+      @Field("long_of_booking") String long_of_booking,
+      @Field("price_perhour") String price_perhour,
+      @Field("price") String price,
+      @Field("discon") String discon,
+      @Field("price_total") String price_total
+  );
+
 
 }

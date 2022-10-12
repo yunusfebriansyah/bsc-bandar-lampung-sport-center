@@ -11,6 +11,7 @@
         android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:paddingHorizontal="@dimen/padding_horizontal_content"
         android:scrollbars="none">
 
@@ -64,5 +65,29 @@
         </LinearLayout>
 
     </ScrollView>
+
+    <Button
+        android:id="@+id/btn_booking_now"
+        style="@style/button_primary"
+        android:layout_width="match_parent"
+        android:text="@string/booking_now"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_margin="20dp"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/not_available"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="PENUH"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_margin="20dp"
+        android:fontFamily="@font/bold"
+        android:textColor="@color/danger"
+        android:textAlignment="center"
+        android:visibility="gone"/>
 
 </android.support.constraint.ConstraintLayout>
