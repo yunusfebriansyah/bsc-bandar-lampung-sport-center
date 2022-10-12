@@ -45,7 +45,6 @@ public class FieldAdapter extends RecyclerView.Adapter<FieldAdapter.HolderData> 
     Picasso.get().load(RetroServer.getBASE_URL_FILE() + model.getPhoto()).into(holder.photo);
 
     holder.fieldItem.setOnClickListener(view -> {
-//      Toast.makeText(ctx, "ID Field : " + model.getId(), Toast.LENGTH_SHORT).show();
 
       intent = new Intent(ctx, FieldDetailActivity.class);
       intent.putExtra("id", model.getId());

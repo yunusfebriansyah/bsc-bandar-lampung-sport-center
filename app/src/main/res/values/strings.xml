@@ -31,6 +31,7 @@
     <string name="cancel_booking">Batalkan Sewa</string>
     <string name="add">Tambah</string>
     <string name="change">Ubah</string>
+    <string name="see_payment">Lihat Cara Bayar</string>
 
     <!-- Heading text -->
     <string name="register">Daftar</string>
@@ -50,7 +51,11 @@
     <string name="booking_date">Tanggal sewa</string>
     <string name="field_name">Nama lapangan</string>
     <string name="select_start_at">Pilih jam mulai</string>
-    <string name="seelct_end_at">Pilih jam selesai</string>
+    <string name="select_end_at">Pilih jam selesai</string>
+    <string name="start_at">Jam mulai</string>
+    <string name="end_at">Jam selesai</string>
+    <string name="long_of_booking">Lama sewa</string>
+    <string name="booking_price_perhour">Harga sewa perjam</string>
     <string name="booking_price">Biaya sewa</string>
     <string name="discon">Diskon</string>
     <string name="price_total">Total biaya sewa</string>
