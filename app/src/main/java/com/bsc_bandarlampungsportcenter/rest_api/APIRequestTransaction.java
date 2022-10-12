@@ -16,7 +16,15 @@ public interface APIRequestTransaction {
 
   @GET("transactions/{id}")
   Call<ResponseModelTransaction> getDetailData(
-          @Path("id") String id
+      @Path("id") String id
   );
+
+  @FormUrlEncoded
+  @POST("transactions/{id}?_method=PUT")
+  Call<ResponseModelTransaction> update(
+      @Path("id") String id,
+      @Field("status") String status
+  );
+
 
 }

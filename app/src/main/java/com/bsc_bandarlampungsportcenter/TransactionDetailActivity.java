@@ -2,6 +2,7 @@ package com.bsc_bandarlampungsportcenter;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.bsc_bandarlampungsportcenter.rest_api.APIRequestTransaction;
 import com.bsc_bandarlampungsportcenter.rest_api.TransactionModel;
 import com.bsc_bandarlampungsportcenter.rest_api.ResponseModelTransaction;
 import com.bsc_bandarlampungsportcenter.rest_api.RetroServer;
+import com.bsc_bandarlampungsportcenter.session.User;
 import com.squareup.picasso.Picasso;
 
 import java.text.NumberFormat;
@@ -58,6 +60,10 @@ public class TransactionDetailActivity extends AppCompatActivity {
       intent = new Intent(TransactionDetailActivity.this, PaymentActivity.class);
       intent.putExtra("message", "");
       startActivity(intent);
+    });
+
+    btnCancelTransaction.setOnClickListener( view -> {
+      cancelTransaction();
     });
 
     bundle = getIntent().getExtras();
@@ -113,8 +119,10 @@ public class TransactionDetailActivity extends AppCompatActivity {
         }else if( transactionStatus.equalsIgnoreCase("menunggu pembayaran") ) {
           txtPendingStatus.setText(transactionStatus);
           txtPendingStatus.setVisibility(View.VISIBLE);
-          btnSeePeyment.setVisibility(View.VISIBLE);
-          btnCancelTransaction.setVisibility(View.VISIBLE);
+          if(User.getIsAdmin().equalsIgnoreCase("0")) {
+            btnSeePeyment.setVisibility(View.VISIBLE);
+            btnCancelTransaction.setVisibility(View.VISIBLE);
+          }
         }else{
           txtFailedStatus.setText(transactionStatus);
           txtFailedStatus.setVisibility(View.VISIBLE);
@@ -130,6 +138,49 @@ public class TransactionDetailActivity extends AppCompatActivity {
         pd.dismiss();
         //  tampilkan pesan
         Toast.makeText(TransactionDetailActivity.this, "Data gagal ditampilkan!" + t.getMessage(), Toast.LENGTH_SHORT).show();
+
+      }
+    });
+  }
+
+  void cancelTransaction ()
+  {
+    //  deklarasi variabel komponen "Progress Dialog"
+    ProgressDialog pd;
+    //  setup progress dialog
+    pd = new ProgressDialog(TransactionDetailActivity.this);
+    //  progress dialog tidak dapat di cancel
+    pd.setCancelable(false);
+    //  isi teks progress dialog
+    pd.setMessage("Mohon Tunggu ...");
+    //  tampilkan progress dialog
+    pd.show();
+
+    APIRequestTransaction ardData = RetroServer.konekRetrofit().create(APIRequestTransaction.class);
+    Call<ResponseModelTransaction> updateData = ardData.update(
+        txtId.getText().toString(), "dibatalkan" );
+
+    //  deskripsi isi variabel "cl"
+    updateData.enqueue(new Callback<ResponseModelTransaction>() {
+      //  ketika data berhasil diambil
+      @Override
+      public void onResponse(Call<ResponseModelTransaction> call, Response<ResponseModelTransaction> response) {
+        //  tutup progress dialog
+        pd.dismiss();
+        Toast.makeText(TransactionDetailActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+        intent = new Intent(TransactionDetailActivity.this, TransactionDetailActivity.class);
+        intent.putExtra("id", txtId.getText().toString());
+        startActivity(intent);
+        finish();
+
+      }
+      //  ketika data gagal diambil
+      @Override
+      public void onFailure(Call<ResponseModelTransaction> call, Throwable t) {
+        //  hilangkan progress dialog
+        pd.dismiss();
+        //  tampilkan pesan
+        Toast.makeText(TransactionDetailActivity.this, "Gagal diproses!" + t.getMessage(), Toast.LENGTH_SHORT).show();
 
       }
     });
