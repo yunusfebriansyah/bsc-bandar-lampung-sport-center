@@ -3,6 +3,7 @@ package com.bsc_bandarlampungsportcenter;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
+    Price.setPrice(MainActivity.this);
     super.onCreate(savedInstanceState);
     config = new DBConfig(this);
 

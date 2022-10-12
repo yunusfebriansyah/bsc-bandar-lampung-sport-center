@@ -39,4 +39,13 @@ public interface APIRequestUser {
       @Field("email") String email
   );
 
+  @FormUrlEncoded
+  @POST("user/change-password/{id}?_method=PUT")
+  Call<ResponseModelUser> changePassword(
+      @Path("id") String id,
+      @Field("password") String oldPassword,
+      @Field("new_password") String newPassword,
+      @Field("confirm_password") String confirmPassword
+  );
+
 }

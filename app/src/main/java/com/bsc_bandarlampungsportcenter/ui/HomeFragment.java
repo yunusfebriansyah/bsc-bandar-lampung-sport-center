@@ -3,13 +3,13 @@ package com.bsc_bandarlampungsportcenter.ui;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.arch.lifecycle.ViewModelProvider;
 
 import com.bsc_bandarlampungsportcenter.R;
 import com.bsc_bandarlampungsportcenter.databinding.FragmentHomeBinding;
@@ -35,7 +35,13 @@ public class HomeFragment extends Fragment {
       startActivity(intent);
     });
 
-    txtPrice.setText(String.valueOf(Price.getPriceMoney(getActivity())));
+    Price.setPrice(getActivity());
+    Handler handler = new Handler();
+    handler.postDelayed(new Runnable() {
+      public void run() {
+        txtPrice.setText(String.valueOf(Price.getPriceMoney()));
+      }
+    }, 1000);
 
     return vw;
   }

@@ -22,14 +22,12 @@ public class Price {
 
   private static int priceToday = 0;
 
-  public static int getPrice(Context ctx) {
-    setPrice(ctx);
+  public static int getPrice() {
     return priceToday;
   }
 
-  public static String getPriceMoney(Context ctx)
+  public static String getPriceMoney()
   {
-    setPrice(ctx);
     String money = "Rp. " + NumberFormat.getInstance().format(priceToday);
     return money;
   }

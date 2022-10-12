@@ -98,7 +98,7 @@ public class EditProfileActivity extends AppCompatActivity {
         //  hilangkan progress dialog
         pd.dismiss();
         //  tampilkan pesan
-        Toast.makeText(EditProfileActivity.this, "Data gagal ditampilkan!" + t.getMessage(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(EditProfileActivity.this, "Data gagal diproses!" + t.getMessage(), Toast.LENGTH_SHORT).show();
 
       }
     });

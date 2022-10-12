@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bsc_bandarlampungsportcenter.ChangePasswordActivity;
 import com.bsc_bandarlampungsportcenter.DBConfig;
 import com.bsc_bandarlampungsportcenter.EditProfileActivity;
 import com.bsc_bandarlampungsportcenter.FieldDetailActivity;
@@ -68,6 +69,11 @@ public class AccountFragment extends Fragment {
 
     btnChangeAccount.setOnClickListener(view -> {
       intent = new Intent(getActivity(), EditProfileActivity.class);
+      startActivity(intent);
+    });
+
+    btnChangePassword.setOnClickListener(view -> {
+      intent = new Intent(getActivity(), ChangePasswordActivity.class);
       startActivity(intent);
     });
 
