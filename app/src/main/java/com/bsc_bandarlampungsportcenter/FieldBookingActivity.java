@@ -2,6 +2,7 @@ package com.bsc_bandarlampungsportcenter;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -33,13 +34,13 @@ import retrofit2.Response;
 
 public class FieldBookingActivity extends AppCompatActivity {
 
-  Intent intent;
   Bundle bundle;
   ImageView imgField;
   TextView txtId, txtName, txtPrice, txtPriceMoney, txtBookingPricePerHour, txtLongOfBooking, txtBookingPrice, txtDiscon, txtPriceTotal;
   Button btnCancel, btnBooking;
   Spinner spStartAt, spEndAt;
-  String startAtItems[], endAtItems[];
+  int startAtItems[], endAtItems[];
+  String textStartAtItems[], textEndAtItems[];
   ArrayAdapter<String> startAtAdapter, endAtAdapter;
   int longOfBooking, discon, price;
 
@@ -66,14 +67,6 @@ public class FieldBookingActivity extends AppCompatActivity {
     btnCancel = findViewById(R.id.btn_cancel);
     btnBooking = findViewById(R.id.btn_booking);
 
-    btnCancel.setOnClickListener( view -> {
-      finish();
-    });
-
-    btnBooking.setOnClickListener( view -> {
-
-    });
-
     txtPrice.setText(String.valueOf(Price.getPrice()));
     txtPriceMoney.setText(Price.getPriceMoney() + " / jam");
     txtBookingPricePerHour.setText(Price.getPriceMoney());
@@ -87,10 +80,14 @@ public class FieldBookingActivity extends AppCompatActivity {
       getTime(id);
     }
 
+    btnCancel.setOnClickListener( view -> {
+      finish();
+    });
+
     spStartAt.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
       @Override
       public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        getEndAtTime(id, spStartAt.getSelectedItem().toString());
+        getEndAtTime(id, String.valueOf(startAtItems[(int) spStartAt.getSelectedItemId()]));
       }
 
       @Override
@@ -111,6 +108,10 @@ public class FieldBookingActivity extends AppCompatActivity {
       }
     });
 
+    btnBooking.setOnClickListener( view -> {
+      booking(id);
+    });
+
     getSupportActionBar().hide();
 
   }
@@ -118,8 +119,8 @@ public class FieldBookingActivity extends AppCompatActivity {
 
   void changePriceByEndAt()
   {
-    int startAt = Integer.valueOf(spStartAt.getSelectedItem().toString());
-    int endAt = Integer.valueOf(spEndAt.getSelectedItem().toString());
+    int startAt = startAtItems[(int) spStartAt.getSelectedItemId()];
+    int endAt = endAtItems[(int) spEndAt.getSelectedItemId()];
 
     longOfBooking = endAt - startAt;
     price = longOfBooking * Integer.valueOf(txtPrice.getText().toString());
@@ -162,18 +163,20 @@ public class FieldBookingActivity extends AppCompatActivity {
         //  tampilkan data ke dalam list
         startAtItems = response.body().getStart_at();
         endAtItems = response.body().getEnd_at();
+        textStartAtItems = response.body().getText_start_at();
+        textEndAtItems = response.body().getText_end_at();
 
         startAtAdapter = new ArrayAdapter<String>(FieldBookingActivity.this,
-                R.layout.spinner_list,startAtItems);
+                R.layout.spinner_list,textStartAtItems);
         startAtAdapter.setDropDownViewResource(R.layout.spinner_list);
         spStartAt.setAdapter(startAtAdapter);
 
         endAtAdapter = new ArrayAdapter<String>(FieldBookingActivity.this,
-                R.layout.spinner_list,endAtItems);
+                R.layout.spinner_list,textEndAtItems);
         endAtAdapter.setDropDownViewResource(R.layout.spinner_list);
         spEndAt.setAdapter(endAtAdapter);
 
-        longOfBooking = Integer.valueOf(endAtItems[0] ) - Integer.valueOf(startAtItems[0]);
+        longOfBooking = endAtItems[0] - startAtItems[0];
         price = longOfBooking * Integer.valueOf(txtPrice.getText().toString());
         discon = 0;
 
@@ -228,13 +231,14 @@ public class FieldBookingActivity extends AppCompatActivity {
       public void onResponse(Call<ResponseModelTime> call, Response<ResponseModelTime> response) {
         //  tampilkan data ke dalam list
         endAtItems = response.body().getEnd_at();
+        textEndAtItems = response.body().getText_end_at();
 
         endAtAdapter = new ArrayAdapter<String>(FieldBookingActivity.this,
-                R.layout.spinner_list,endAtItems);
+                R.layout.spinner_list,textEndAtItems);
         endAtAdapter.setDropDownViewResource(R.layout.spinner_list);
         spEndAt.setAdapter(endAtAdapter);
 
-        longOfBooking = Integer.valueOf(endAtItems[0] ) - Integer.valueOf(startAtItems[0]);
+        longOfBooking = endAtItems[0] - startAtItems[0];
         price = longOfBooking * Integer.valueOf(txtPrice.getText().toString());
         discon = 0;
 
@@ -323,8 +327,8 @@ public class FieldBookingActivity extends AppCompatActivity {
     Call<ResponseModelTransaction> booking = ardData.booking(
         User.getUserId(),
         id,
-        spStartAt.getSelectedItem().toString(),
-        spEndAt.getSelectedItem().toString(),
+        String.valueOf(startAtItems[(int) spStartAt.getSelectedItemId()]),
+        String.valueOf(endAtItems[(int) spEndAt.getSelectedItemId()]),
         String.valueOf(longOfBooking),
         txtPrice.getText().toString(),
         String.valueOf(price),
@@ -337,10 +341,15 @@ public class FieldBookingActivity extends AppCompatActivity {
       //  ketika data berhasil diambil
       @Override
       public void onResponse(Call<ResponseModelTransaction> call, Response<ResponseModelTransaction> response) {
-        //  tampilkan data ke dalam list
-
         //  tutup progress dialog
         pd.dismiss();
+        Toast.makeText(FieldBookingActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+        new Handler().postDelayed(new Runnable(){
+          @Override
+          public void run() {
+            finish();
+          }
+        }, 1000);
       }
       //  ketika data gagal diambil
       @Override

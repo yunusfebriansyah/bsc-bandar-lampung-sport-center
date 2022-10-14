@@ -7,7 +7,8 @@ public class ResponseModelTime {
   private int status;
   private String message;
   private List<ErrorModel> errors;
-  private String start_at[], end_at[];
+  private String text_start_at[], text_end_at[];
+  private int start_at[], end_at[];
   private boolean is_available;
 
   public int getStatus() {
@@ -34,20 +35,36 @@ public class ResponseModelTime {
     this.errors = errors;
   }
 
-  public String[] getStart_at() {
+  public int[] getStart_at() {
     return start_at;
   }
 
-  public void setStart_at(String[] start_at) {
+  public void setStart_at(int[] start_at) {
     this.start_at = start_at;
   }
 
-  public String[] getEnd_at() {
+  public int[] getEnd_at() {
     return end_at;
   }
 
-  public void setEnd_at(String[] end_at) {
+  public void setEnd_at(int[] end_at) {
     this.end_at = end_at;
+  }
+
+  public String[] getText_start_at() {
+    return text_start_at;
+  }
+
+  public void setText_start_at(String[] text_start_at) {
+    this.text_start_at = text_start_at;
+  }
+
+  public String[] getText_end_at() {
+    return text_end_at;
+  }
+
+  public void setText_end_at(String[] text_end_at) {
+    this.text_end_at = text_end_at;
   }
 
   public boolean isIs_available() {
