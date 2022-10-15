@@ -1,5 +1,6 @@
 package com.bsc_bandarlampungsportcenter;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Handler;
@@ -17,6 +18,7 @@ import com.bsc_bandarlampungsportcenter.rest_api.TransactionModel;
 import com.bsc_bandarlampungsportcenter.rest_api.ResponseModelTransaction;
 import com.bsc_bandarlampungsportcenter.rest_api.RetroServer;
 import com.bsc_bandarlampungsportcenter.session.User;
+import com.bsc_bandarlampungsportcenter.ui.TransactionFragment;
 import com.squareup.picasso.Picasso;
 
 import java.text.NumberFormat;
@@ -69,15 +71,45 @@ public class TransactionDetailActivity extends AppCompatActivity {
     });
 
     btnCancelTransaction.setOnClickListener( view -> {
-      changeTransaction("dibatalkan");
+      AlertDialog.Builder confirm = new AlertDialog.Builder(view.getContext());
+      final CharSequence[] confirmItem = {"Ya", "Batal"};
+      confirm.setTitle("Yakin ingin membatalkan transaksi?");
+      confirm.setItems(confirmItem,(dialogConfirm, whichConfirm)->{
+        switch (whichConfirm) {
+          case 0:
+            changeTransaction("dibatalkan");
+            break;
+        }
+      });
+      confirm.create().show();
     });
 
     btnDenied.setOnClickListener( view -> {
-      changeTransaction("ditolak");
+      AlertDialog.Builder confirm = new AlertDialog.Builder(view.getContext());
+      final CharSequence[] confirmItem = {"Ya", "Batal"};
+      confirm.setTitle("Yakin ingin menolak transaksi?");
+      confirm.setItems(confirmItem,(dialogConfirm, whichConfirm)->{
+        switch (whichConfirm) {
+          case 0:
+            changeTransaction("ditolak");
+            break;
+        }
+      });
+      confirm.create().show();
     });
 
     btnAccept.setOnClickListener( view -> {
-      changeTransaction("lunas");
+      AlertDialog.Builder confirm = new AlertDialog.Builder(view.getContext());
+      final CharSequence[] confirmItem = {"Ya", "Batal"};
+      confirm.setTitle("Yakin ingin menyetujui transaksi?");
+      confirm.setItems(confirmItem,(dialogConfirm, whichConfirm)->{
+        switch (whichConfirm) {
+          case 0:
+            changeTransaction("lunas");
+            break;
+        }
+      });
+      confirm.create().show();
     });
 
     bundle = getIntent().getExtras();

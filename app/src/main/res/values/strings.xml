@@ -34,6 +34,7 @@
     <string name="cancel_booking">Batalkan Sewa</string>
     <string name="add">Tambah</string>
     <string name="change">Ubah</string>
+    <string name="delete">Hapus</string>
     <string name="see_payment">Lihat Cara Bayar</string>
     <string name="select_photo">Pilih Foto</string>
 

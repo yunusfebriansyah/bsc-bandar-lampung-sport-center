@@ -3,6 +3,7 @@ package com.bsc_bandarlampungsportcenter.rest_api;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -30,6 +31,11 @@ public interface APIRequestField {
       @Part("description") RequestBody description,
       @Part MultipartBody.Part photo,
       @Part MultipartBody.Part photo_360
+  );
+
+  @DELETE("fields/{id}")
+  Call<ResponseModelField> deleteField(
+      @Path("id") String id
   );
 
 

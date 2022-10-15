@@ -91,4 +91,32 @@
         android:textAlignment="center"
         android:visibility="gone"/>
 
+    <LinearLayout
+        android:id="@+id/action_admin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/btn_delete"
+            style="@style/button_danger"
+            android:layout_width="0dp"
+            android:layout_weight=".50"
+            android:text="@string/delete"
+            android:layout_marginEnd="10dp"/>
+
+        <Button
+            android:id="@+id/btn_change"
+            style="@style/button_primary"
+            android:layout_width="0dp"
+            android:layout_weight=".50"
+            android:text="@string/change"
+            android:layout_marginStart="10dp"/>
+
+    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>
