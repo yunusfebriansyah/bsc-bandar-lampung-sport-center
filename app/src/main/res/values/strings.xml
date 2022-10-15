@@ -43,6 +43,8 @@
     <string name="login">Login</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="add_field">Tambah Lapangan</string>
+    <string name="change_field">Ubah Lapangan</string>
+
 
     <!-- Label text -->
     <string name="name">Nama</string>

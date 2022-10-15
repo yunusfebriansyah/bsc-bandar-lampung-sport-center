@@ -42,6 +42,8 @@ public class FieldDetailActivity extends AppCompatActivity {
   Button btnSee360, btnBookingNow, btnDelete, btnChange;
   LinearLayout actionAdmin;
 
+  String id;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -62,7 +64,7 @@ public class FieldDetailActivity extends AppCompatActivity {
 
 
     bundle = getIntent().getExtras();
-    String id = String.valueOf(bundle.get("id"));
+    id = String.valueOf(bundle.get("id"));
     if( !id.isEmpty() ) {
       tampilData(id);
       getTime(id);
@@ -93,8 +95,19 @@ public class FieldDetailActivity extends AppCompatActivity {
       confirm.create().show();
     });
 
+    btnChange.setOnClickListener(view -> {
+      intent = new Intent(FieldDetailActivity.this, ChangeFieldActivity.class);
+      intent.putExtra("id", id);
+      startActivity(intent);
+    });
 
+  }
 
+  @Override
+  protected void onResume() {
+    tampilData(id);
+    getTime(id);
+    super.onResume();
   }
 
   void tampilData (String id)

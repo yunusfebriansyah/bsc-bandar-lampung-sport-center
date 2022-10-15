@@ -59,7 +59,8 @@
                 android:id="@+id/btn_see_360"
                 style="@style/button_primary_border"
                 android:layout_width="match_parent"
-                android:text="@string/see_photo_360"/>
+                android:text="@string/see_photo_360"
+                android:layout_marginBottom="200dp"/>
 
 
 

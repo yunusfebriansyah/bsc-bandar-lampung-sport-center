@@ -168,7 +168,7 @@ public class AddFieldActivity extends AppCompatActivity {
 
       File filePhoto360 = new File(photo360Path);
       RequestBody requestFilePhoto360 = RequestBody.create(MediaType.parse("multipart/form-data"), filePhoto360);
-      MultipartBody.Part photo360 = MultipartBody.Part.createFormData("photo_360", filePhoto.getName(), requestFilePhoto360);
+      MultipartBody.Part photo360 = MultipartBody.Part.createFormData("photo_360", filePhoto360.getName(), requestFilePhoto360);
 
       Call<ResponseModelField> addField = ardData.addField(name, description, photo, photo360);
 

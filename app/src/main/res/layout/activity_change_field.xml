@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ChangeFieldActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingHorizontal="@dimen/padding_horizontal_content"
+        android:scrollbars="none">
+
+        <LinearLayout
+            style="@style/base_container_linearlayout">
+
+            <TextView
+                style="@style/heading"
+                android:text="@string/change_field"/>
+
+            <TextView
+                style="@style/label"
+                android:text="@string/field_name"
+                android:layout_marginTop="0dp"/>
+
+            <EditText
+                android:id="@+id/name"
+                style="@style/input_text"
+                android:hint="@string/field_name" />
+
+            <TextView
+                android:id="@+id/error_name"
+                style="@style/error_text"/>
+
+            <TextView
+                style="@style/label"
+                android:text="@string/description"
+                android:layout_marginTop="0dp"/>
+
+            <EditText
+                android:id="@+id/description"
+                style="@style/input_text"
+                android:hint="@string/description"
+                android:inputType="textMultiLine"/>
+
+            <TextView
+                android:id="@+id/error_description"
+                style="@style/error_text"/>
+
+            <TextView
+                style="@style/label"
+                android:text="@string/field_photo"
+                android:layout_marginTop="0dp"/>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="10dp">
+
+                <ImageView
+                    android:id="@+id/photo"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/logo"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    android:contentDescription="Profile Photo"
+                    android:visibility="gone"/>
+
+            </android.support.v7.widget.CardView>
+
+            <Button
+                android:id="@+id/select_photo"
+                style="@style/button_file"
+                android:layout_width="match_parent"
+                android:text="@string/select_photo"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"/>
+
+            <TextView
+                android:id="@+id/error_photo"
+                style="@style/error_text"/>
+
+            <TextView
+                style="@style/label"
+                android:text="@string/field_360"
+                android:layout_marginTop="0dp"/>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="10dp">
+
+                <ImageView
+                    android:id="@+id/photo_360"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/logo"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    android:contentDescription="Profile Photo"
+                    android:visibility="gone"/>
+
+            </android.support.v7.widget.CardView>
+
+            <Button
+                android:id="@+id/select_photo_360"
+                style="@style/button_file"
+                android:layout_width="match_parent"
+                android:text="@string/select_photo"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"/>
+
+            <TextView
+                android:id="@+id/error_photo_360"
+                style="@style/error_text"/>
+
+            <Button
+                android:id="@+id/btn_change"
+                style="@style/button_primary"
+                android:layout_width="match_parent"
+                android:text="@string/change"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="200dp"/>
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>
