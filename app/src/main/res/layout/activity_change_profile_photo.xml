@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ChangeProfilePhotoActivity"
+    android:paddingHorizontal="20dp"
+    android:paddingTop="20dp"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="10dp">
+
+            <ImageView
+                android:id="@+id/photo"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/logo"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:contentDescription="Profile Photo"/>
+
+        </android.support.v7.widget.CardView>
+
+        <TextView
+            android:id="@+id/error_photo"
+            style="@style/error_text"
+            android:text="@string/error"
+            android:textAlignment="center"
+            android:layout_marginTop="5dp"/>
+
+        <TextView
+            android:id="@+id/select_photo"
+            style="@style/link_text"
+            android:text="Pilih foto"
+            android:textAlignment="center"
+            android:layout_marginVertical="10dp"/>
+
+        <Button
+            android:id="@+id/change_photo"
+            style="@style/button_primary"
+            android:layout_width="match_parent"
+            android:text="@string/change"
+            android:layout_marginTop="20dp"/>
+
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

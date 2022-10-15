@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bsc_bandarlampungsportcenter.ChangePasswordActivity;
+import com.bsc_bandarlampungsportcenter.ChangeProfilePhotoActivity;
 import com.bsc_bandarlampungsportcenter.DBConfig;
 import com.bsc_bandarlampungsportcenter.EditProfileActivity;
 import com.bsc_bandarlampungsportcenter.FieldDetailActivity;
@@ -48,10 +49,11 @@ public class AccountFragment extends Fragment {
   TextView txtName, txtUsername, txtEmail, txtCountSuccess, txtCountPending, txtCountFailed;
   ImageView photoProfile;
 
-  Button btnChangePassword, btnLogout, btnChangeAccount;
+  Button btnChangePassword, btnLogout, btnChangeAccount, btnChangePhoto;
 
   public View onCreateView(@NonNull LayoutInflater inflater,
                            ViewGroup container, Bundle savedInstanceState) {
+
     vw = inflater.inflate(R.layout.fragment_account, container, false);
     config = new DBConfig(getContext());
 
@@ -66,6 +68,12 @@ public class AccountFragment extends Fragment {
     btnChangePassword = vw.findViewById(R.id.btn_change_password);
     btnChangeAccount = vw.findViewById(R.id.btn_edit_profile);
     btnLogout = vw.findViewById(R.id.btn_logout);
+    btnChangePhoto = vw.findViewById(R.id.btn_change_photo);
+
+    btnChangePhoto.setOnClickListener(view -> {
+      intent = new Intent(getActivity(), ChangeProfilePhotoActivity.class);
+      startActivity(intent);
+    });
 
     btnChangeAccount.setOnClickListener(view -> {
       intent = new Intent(getActivity(), EditProfileActivity.class);

@@ -1,10 +1,13 @@
 package com.bsc_bandarlampungsportcenter.rest_api;
 
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 public interface APIRequestUser {
@@ -46,6 +49,13 @@ public interface APIRequestUser {
       @Field("password") String oldPassword,
       @Field("new_password") String newPassword,
       @Field("confirm_password") String confirmPassword
+  );
+
+  @Multipart
+  @POST("user/edit-photo/{id}?_method=PUT")
+  Call<ResponseModelUser> editPhoto(
+      @Path("id") String id,
+      @Part MultipartBody.Part photo
   );
 
 }
