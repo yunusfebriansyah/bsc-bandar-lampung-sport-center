@@ -33,14 +33,6 @@ public interface APIRequestField {
       @Part MultipartBody.Part photo_360
   );
 
-  @FormUrlEncoded
-  @POST("fields/{1}?_method=PUT")
-  Call<ResponseModelField> changeFieldWithoutPhoto(
-      @Path("id") String id,
-      @Field("name") String name,
-      @Field("description") String description
-  );
-
   @Multipart
   @POST("fields/{id}?_method=PUT")
   Call<ResponseModelField> changeField(
