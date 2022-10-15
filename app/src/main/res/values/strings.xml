@@ -25,6 +25,8 @@
     <string name="see_photo_360">View 360</string>
     <string name="booking_now">Sewa Sekarang</string>
     <string name="cancel">Batal</string>
+    <string name="denied">Tolak</string>
+    <string name="accept">Terima</string>
     <string name="booking">Sewa</string>
     <string name="change_password">Ubah Password</string>
     <string name="add_admin">Tambah Admin</string>

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,10 +29,12 @@ public class TransactionDetailActivity extends AppCompatActivity {
 
   Intent intent;
   Bundle bundle;
+
+  LinearLayout actionAdmin;
   
   ImageView fieldPhoto;
   TextView txtId, txtTransactionCode, txtSuccessStatus, txtPendingStatus, txtFailedStatus, txtCreatedAt, txtFieldName, txtStartAt, txtEndAt, txtLongOfBooking, txtBookingPricePerHour, txtPrice, txtDiscon, txtPriceTotal;
-  Button btnSeePeyment, btnCancelTransaction;
+  Button btnSeePeyment, btnCancelTransaction, btnDenied, btnAccept;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +58,9 @@ public class TransactionDetailActivity extends AppCompatActivity {
     txtPriceTotal = findViewById(R.id.price_total);
     btnSeePeyment = findViewById(R.id.btn_see_payment);
     btnCancelTransaction = findViewById(R.id.btn_cancel_transaction);
+    actionAdmin = findViewById(R.id.action_admin);
+    btnDenied = findViewById(R.id.btn_denied);
+    btnAccept = findViewById(R.id.btn_accept);
 
     btnSeePeyment.setOnClickListener( view -> {
       intent = new Intent(TransactionDetailActivity.this, PaymentActivity.class);
@@ -63,7 +69,15 @@ public class TransactionDetailActivity extends AppCompatActivity {
     });
 
     btnCancelTransaction.setOnClickListener( view -> {
-      cancelTransaction();
+      changeTransaction("dibatalkan");
+    });
+
+    btnDenied.setOnClickListener( view -> {
+      changeTransaction("ditolak");
+    });
+
+    btnAccept.setOnClickListener( view -> {
+      changeTransaction("lunas");
     });
 
     bundle = getIntent().getExtras();
@@ -119,7 +133,8 @@ public class TransactionDetailActivity extends AppCompatActivity {
         }else if( transactionStatus.equalsIgnoreCase("menunggu pembayaran") ) {
           txtPendingStatus.setText(transactionStatus);
           txtPendingStatus.setVisibility(View.VISIBLE);
-          if(User.getIsAdmin().equalsIgnoreCase("0")) {
+          if(!User.isAdmin()) {
+            actionAdmin.setVisibility(View.GONE);
             btnSeePeyment.setVisibility(View.VISIBLE);
             btnCancelTransaction.setVisibility(View.VISIBLE);
           }
@@ -143,7 +158,7 @@ public class TransactionDetailActivity extends AppCompatActivity {
     });
   }
 
-  void cancelTransaction ()
+  void changeTransaction (String status)
   {
     //  deklarasi variabel komponen "Progress Dialog"
     ProgressDialog pd;
@@ -158,7 +173,7 @@ public class TransactionDetailActivity extends AppCompatActivity {
 
     APIRequestTransaction ardData = RetroServer.konekRetrofit().create(APIRequestTransaction.class);
     Call<ResponseModelTransaction> updateData = ardData.update(
-        txtId.getText().toString(), "dibatalkan" );
+        txtId.getText().toString(), status );
 
     //  deskripsi isi variabel "cl"
     updateData.enqueue(new Callback<ResponseModelTransaction>() {
@@ -185,5 +200,6 @@ public class TransactionDetailActivity extends AppCompatActivity {
       }
     });
   }
-  
+
+
 }

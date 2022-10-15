@@ -342,4 +342,31 @@
         android:layout_margin="20dp"
         android:visibility="gone"/>
 
+    <LinearLayout
+        android:id="@+id/action_admin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <Button
+            android:id="@+id/btn_denied"
+            style="@style/button_danger_border"
+            android:layout_width="0dp"
+            android:layout_weight=".50"
+            android:text="@string/denied"
+            android:layout_marginEnd="10dp"/>
+
+        <Button
+            android:id="@+id/btn_accept"
+            style="@style/button_primary"
+            android:layout_width="0dp"
+            android:layout_weight=".50"
+            android:text="@string/accept"
+            android:layout_marginStart="10dp"/>
+
+    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>
