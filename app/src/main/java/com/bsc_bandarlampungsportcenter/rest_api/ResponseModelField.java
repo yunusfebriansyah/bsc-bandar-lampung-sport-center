@@ -6,6 +6,8 @@ public class ResponseModelField {
 
   private List<FieldModel> data;
 
+  private List<ErrorModel> errors;
+
   private int count, status;
 
   private String message;
@@ -40,5 +42,13 @@ public class ResponseModelField {
 
   public void setData(List<FieldModel> data) {
     this.data = data;
+  }
+
+  public List<ErrorModel> getErrors() {
+    return errors;
+  }
+
+  public void setErrors(List<ErrorModel> errors) {
+    this.errors = errors;
   }
 }

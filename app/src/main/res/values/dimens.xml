@@ -4,9 +4,10 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="margin_top_fragment">20dp</dimen>
     <dimen name="padding_horizontal_content">20dp</dimen>
-    <dimen name="margin_bottom_for_linearlayout">100dp</dimen>
+    <dimen name="margin_bottom_for_linearlayout">200dp</dimen>
     <dimen name="button_text_size">14sp</dimen>
     <dimen name="button_height">35dp</dimen>
+    <dimen name="button_file_height">28dp</dimen>
     <dimen name="button_small_height">25dp</dimen>
     <dimen name="plain_text">12dp</dimen>
 

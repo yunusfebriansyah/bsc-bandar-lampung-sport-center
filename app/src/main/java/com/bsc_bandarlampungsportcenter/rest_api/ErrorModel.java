@@ -2,7 +2,7 @@ package com.bsc_bandarlampungsportcenter.rest_api;
 
 public class ErrorModel {
 
-  String name, username, email, password, new_password, confirm_password, is_admin, photo;
+  String name, username, email, password, new_password, confirm_password, is_admin, photo, photo_360, description;
 
   public String getName() {
     return name;
@@ -66,5 +66,21 @@ public class ErrorModel {
 
   public void setPhoto(String photo) {
     this.photo = photo;
+  }
+
+  public String getPhoto_360() {
+    return photo_360;
+  }
+
+  public void setPhoto_360(String photo_360) {
+    this.photo_360 = photo_360;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
   }
 }

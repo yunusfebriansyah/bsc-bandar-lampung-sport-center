@@ -1,6 +1,7 @@
 package com.bsc_bandarlampungsportcenter.ui;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,9 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bsc_bandarlampungsportcenter.AddFieldActivity;
 import com.bsc_bandarlampungsportcenter.R;
 import com.bsc_bandarlampungsportcenter.databinding.FragmentFieldBinding;
 import com.bsc_bandarlampungsportcenter.rest_api.APIRequestField;
@@ -20,6 +23,7 @@ import com.bsc_bandarlampungsportcenter.rest_api.FieldAdapter;
 import com.bsc_bandarlampungsportcenter.rest_api.FieldModel;
 import com.bsc_bandarlampungsportcenter.rest_api.ResponseModelField;
 import com.bsc_bandarlampungsportcenter.rest_api.RetroServer;
+import com.bsc_bandarlampungsportcenter.session.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +36,8 @@ public class FieldFragment extends Fragment {
 
   private FragmentFieldBinding binding;
 
+  Intent intent;
+
   View vw;
   RecyclerView rcv_data;
   RecyclerView.Adapter ad_data;
@@ -39,21 +45,38 @@ public class FieldFragment extends Fragment {
   List<FieldModel> list_field = new ArrayList<>();
 
   TextView txtBlank;
+  ImageView btnAdd;
 
   public View onCreateView(@NonNull LayoutInflater inflater,
                            ViewGroup container, Bundle savedInstanceState) {
     vw = inflater.inflate(R.layout.fragment_field, container, false);
 
     txtBlank = vw.findViewById(R.id.txt_blank);
+    btnAdd = vw.findViewById(R.id.btn_add);
 
     rcv_data = vw.findViewById(R.id.rcv_data);
     lm_data = new GridLayoutManager(getActivity(), 2);
 
     rcv_data.setLayoutManager(lm_data);
 
+    if( User.isAdmin() ){
+      btnAdd.setVisibility(View.VISIBLE);
+    }
+
+    btnAdd.setOnClickListener( view -> {
+      intent = new Intent(getActivity(), AddFieldActivity.class);
+      startActivity(intent);
+    });
+
     tampilData();
 
     return vw;
+  }
+
+  @Override
+  public void onResume() {
+    tampilData();
+    super.onResume();
   }
 
   void tampilData ()
@@ -89,7 +112,7 @@ public class FieldFragment extends Fragment {
         }
 
         //  mengisi data adapter dari list
-        ad_data = new FieldAdapter(getContext(), list_field);
+        ad_data = new FieldAdapter(getContext(), list_field, FieldFragment.this);
         rcv_data.setAdapter(ad_data);
         ad_data.notifyDataSetChanged();
 

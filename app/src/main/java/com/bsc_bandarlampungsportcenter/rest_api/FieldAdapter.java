@@ -3,6 +3,7 @@ package com.bsc_bandarlampungsportcenter.rest_api;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,12 +22,14 @@ import java.util.List;
 public class FieldAdapter extends RecyclerView.Adapter<FieldAdapter.HolderData> {
 
   private Context ctx;
+  private Fragment fg;
   private List<FieldModel> listFields;
   Intent intent;
 
-  public FieldAdapter(Context ctx, List<FieldModel> listFields) {
+  public FieldAdapter(Context ctx, List<FieldModel> listFields, Fragment fg) {
     this.ctx = ctx;
     this.listFields = listFields;
+    this.fg = fg;
   }
 
   @NonNull

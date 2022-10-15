@@ -27,11 +27,7 @@
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rcv_data"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="-3dp"
-                android:layout_marginEnd="-3dp"
-                android:visibility="gone"/>
+                style="@style/recyclerview_style"/>
 
         </LinearLayout>
 
