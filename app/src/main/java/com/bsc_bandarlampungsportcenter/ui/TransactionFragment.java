@@ -63,7 +63,6 @@ public class TransactionFragment extends Fragment {
     super.onResume();
   }
 
-
   public void tampilData (String id)
   {
     //  deklarasi variabel komponen "Progress Dialog"
@@ -97,7 +96,7 @@ public class TransactionFragment extends Fragment {
         }
 
         //  mengisi data adapter dari list
-        ad_data = new TransactionAdapter(getContext(), list_transaction);
+        ad_data = new TransactionAdapter(getContext(), list_transaction, TransactionFragment.this);
         rcv_data.setAdapter(ad_data);
         ad_data.notifyDataSetChanged();
 

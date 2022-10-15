@@ -4,8 +4,8 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -31,15 +31,17 @@ import retrofit2.Response;
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.HolderData> {
 
   private Context ctx;
+  Fragment fg;
 
   AlertDialog.Builder builder;
 
   private List<TransactionModel> listTransactions;
   Intent intent;
 
-  public TransactionAdapter(Context ctx, List<TransactionModel> listTransactions) {
+  public TransactionAdapter(Context ctx, List<TransactionModel> listTransactions, Fragment fg) {
     this.ctx = ctx;
     this.listTransactions = listTransactions;
+    this.fg = fg;
   }
 
   @NonNull
@@ -94,12 +96,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
                   switch (whichConfirm) {
                     case 0:
                       changeTransaction(holder.id.getText().toString(),"lunas");
-                      Handler handler = new Handler();
-                      handler.postDelayed(new Runnable() {
-                        public void run() {
-                          ((MainActivity)ctx).changeFragment();
-                        }
-                      }, 1000);
+                      ((TransactionFragment)fg).tampilData(User.getUserId());
                       break;
                   }
                 });
@@ -114,12 +111,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
                   switch (whichConfirm) {
                     case 0:
                       changeTransaction(holder.id.getText().toString(),"ditolak");
-                      Handler handler = new Handler();
-                      handler.postDelayed(new Runnable() {
-                        public void run() {
-                          ((MainActivity)ctx).changeFragment();
-                        }
-                      }, 1000);
+                      ((TransactionFragment)fg).tampilData(User.getUserId());
                       break;
                   }
                 });
