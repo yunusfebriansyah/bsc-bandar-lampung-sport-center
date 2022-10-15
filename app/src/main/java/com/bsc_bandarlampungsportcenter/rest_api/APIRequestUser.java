@@ -34,6 +34,15 @@ public interface APIRequestUser {
   );
 
   @FormUrlEncoded
+  @POST("user/register-admin")
+  Call<ResponseModelUser> registerAdmin(
+      @Field("name") String name,
+      @Field("username") String username,
+      @Field("email") String email,
+      @Field("password") String password
+  );
+
+  @FormUrlEncoded
   @POST("user/edit-profile/{id}?_method=PUT")
   Call<ResponseModelUser> editProfile(
       @Path("id") String id,

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddAdminActivity">
+
+    <LinearLayout
+        style="@style/base_container_linearlayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginHorizontal="20dp">
+
+        <TextView
+            style="@style/heading"
+            android:text="@string/add_admin"/>
+
+        <TextView
+            style="@style/label"
+            android:text="@string/name"
+            android:layout_marginTop="0dp"/>
+
+        <EditText
+            android:id="@+id/name"
+            style="@style/input_text"
+            android:hint="@string/name" />
+
+        <TextView
+            android:id="@+id/error_name"
+            style="@style/error_text"/>
+
+        <TextView
+            style="@style/label"
+            android:text="@string/username"/>
+
+        <EditText
+            android:id="@+id/username"
+            style="@style/input_text"
+            android:hint="@string/username" />
+
+        <TextView
+            android:id="@+id/error_username"
+            style="@style/error_text"/>
+
+        <TextView
+            style="@style/label"
+            android:text="@string/email"/>
+
+        <EditText
+            android:id="@+id/email"
+            style="@style/input_email"
+            android:hint="@string/email" />
+
+        <TextView
+            android:id="@+id/error_email"
+            style="@style/error_text"/>
+
+        <TextView
+            style="@style/label"
+            android:text="@string/password"/>
+
+        <EditText
+            android:id="@+id/password"
+            style="@style/input_password"
+            android:hint="@string/password" />
+
+        <TextView
+            android:id="@+id/error_password"
+            style="@style/error_text"/>
+
+        <TextView
+            style="@style/label"
+            android:text="@string/password_repeat"/>
+
+        <EditText
+            android:id="@+id/password_repeat"
+            style="@style/input_password"
+            android:hint="@string/password_repeat" />
+
+        <TextView
+            android:id="@+id/error_password_repeat"
+            style="@style/error_text"/>
+
+        <Button
+            android:id="@+id/btn_add_admin"
+            style="@style/button_primary"
+            android:layout_width="match_parent"
+            android:text="@string/add"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="5dp"/>
+
+
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

@@ -78,6 +78,7 @@
                 android:layout_marginTop="10dp"/>
 
             <TextView
+                android:id="@+id/label_transaction"
                 style="@style/section_title"
                 android:text="@string/your_transaction"/>
 
@@ -86,7 +87,8 @@
                 android:layout_height="wrap_content"
                 android:columnCount="3"
                 android:layout_marginStart="-3dp"
-                android:layout_marginEnd="-3dp">
+                android:layout_marginEnd="-3dp"
+                android:layout_marginBottom="20dp">
 
                 <android.support.v7.widget.CardView
                     android:layout_width="0dp"
@@ -226,19 +228,25 @@
             </GridLayout>
 
             <Button
+                android:id="@+id/btn_add_admin"
+                style="@style/button_primary_border"
+                android:layout_width="match_parent"
+                android:text="@string/add_admin"
+                android:layout_marginBottom="10dp"
+                android:visibility="gone"/>
+
+            <Button
                 android:id="@+id/btn_change_password"
                 style="@style/button_warning"
                 android:layout_width="match_parent"
                 android:text="@string/change_password"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="5dp"/>
+                android:layout_marginBottom="10dp"/>
 
             <Button
                 android:id="@+id/btn_logout"
                 style="@style/button_danger"
                 android:layout_width="match_parent"
-                android:text="@string/logout"
-                android:layout_marginTop="5dp"/>
+                android:text="@string/logout"/>
 
         </LinearLayout>
 

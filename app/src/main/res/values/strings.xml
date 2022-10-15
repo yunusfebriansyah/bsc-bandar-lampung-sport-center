@@ -27,6 +27,7 @@
     <string name="cancel">Batal</string>
     <string name="booking">Sewa</string>
     <string name="change_password">Ubah Password</string>
+    <string name="add_admin">Tambah Admin</string>
     <string name="logout">Logout</string>
     <string name="cancel_booking">Batalkan Sewa</string>
     <string name="add">Tambah</string>

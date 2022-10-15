@@ -1,7 +1,5 @@
 package com.bsc_bandarlampungsportcenter.session;
 
-import com.bsc_bandarlampungsportcenter.rest_api.RetroServer;
-
 public class User {
 
   private static String userId, isAdmin;
@@ -20,6 +18,10 @@ public class User {
 
   public static void setUserId(String userId) {
     User.userId = userId;
+  }
+
+  public static boolean isAdmin() {
+    return isAdmin.equalsIgnoreCase("1");
   }
 
 }

@@ -85,13 +85,14 @@ public class ChangePasswordActivity extends AppCompatActivity {
         ErrorModel dataError = response.body().getErrors().get(0);
         int status = response.body().getStatus();
         if( status == 200 ) {
+          pd.dismiss();
           Toast.makeText(ChangePasswordActivity.this, "Password berhasil diubah.", Toast.LENGTH_SHORT).show();
           Handler handler = new Handler();
           handler.postDelayed(new Runnable() {
             public void run() {
               finish();
             }
-          }, 1500);
+          }, 1000);
         }else{
           String errorValueOldPassword = dataError.getPassword(), errorValueNewPassword = dataError.getNew_password(), errorValueNewPasswordRepeat = dataError.getConfirm_password();
 
@@ -110,10 +111,9 @@ public class ChangePasswordActivity extends AppCompatActivity {
             txtErrorNewPasswordRepeat.setVisibility(View.VISIBLE);
           }
 
-        }
+          pd.dismiss();
 
-        //  tutup progress dialog
-        pd.dismiss();
+        }
       }
       //  ketika data gagal diambil
       @Override

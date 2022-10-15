@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bsc_bandarlampungsportcenter.AddAdminActivity;
 import com.bsc_bandarlampungsportcenter.ChangePasswordActivity;
 import com.bsc_bandarlampungsportcenter.ChangeProfilePhotoActivity;
 import com.bsc_bandarlampungsportcenter.DBConfig;
@@ -46,10 +47,10 @@ public class AccountFragment extends Fragment {
   SQLiteDatabase db;
   Cursor cursor;
 
-  TextView txtName, txtUsername, txtEmail, txtCountSuccess, txtCountPending, txtCountFailed;
+  TextView txtName, txtUsername, txtEmail, txtCountSuccess, txtCountPending, txtCountFailed, labelTransaction;
   ImageView photoProfile;
 
-  Button btnChangePassword, btnLogout, btnChangeAccount, btnChangePhoto;
+  Button btnChangePassword, btnLogout, btnChangeAccount, btnChangePhoto, btnAddAdmin;
 
   public View onCreateView(@NonNull LayoutInflater inflater,
                            ViewGroup container, Bundle savedInstanceState) {
@@ -64,11 +65,18 @@ public class AccountFragment extends Fragment {
     txtCountSuccess = vw.findViewById(R.id.count_success);
     txtCountPending = vw.findViewById(R.id.count_pending);
     txtCountFailed = vw.findViewById(R.id.count_failed);
+    labelTransaction = vw.findViewById(R.id.label_transaction);
 
     btnChangePassword = vw.findViewById(R.id.btn_change_password);
     btnChangeAccount = vw.findViewById(R.id.btn_edit_profile);
     btnLogout = vw.findViewById(R.id.btn_logout);
     btnChangePhoto = vw.findViewById(R.id.btn_change_photo);
+    btnAddAdmin = vw.findViewById(R.id.btn_add_admin);
+
+    if( User.isAdmin() ){
+      labelTransaction.setText("Rekap Transaksi");
+      btnAddAdmin.setVisibility(View.VISIBLE);
+    }
 
     btnChangePhoto.setOnClickListener(view -> {
       intent = new Intent(getActivity(), ChangeProfilePhotoActivity.class);
@@ -82,6 +90,11 @@ public class AccountFragment extends Fragment {
 
     btnChangePassword.setOnClickListener(view -> {
       intent = new Intent(getActivity(), ChangePasswordActivity.class);
+      startActivity(intent);
+    });
+
+    btnAddAdmin.setOnClickListener(view -> {
+      intent = new Intent(getActivity(), AddAdminActivity.class);
       startActivity(intent);
     });
 

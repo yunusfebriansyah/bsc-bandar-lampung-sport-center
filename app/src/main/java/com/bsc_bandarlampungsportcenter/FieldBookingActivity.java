@@ -333,7 +333,7 @@ public class FieldBookingActivity extends AppCompatActivity {
         txtPrice.getText().toString(),
         String.valueOf(price),
         String.valueOf(discon),
-        String.valueOf((price * longOfBooking) - discon)
+        String.valueOf(price - discon)
     );
 
     //  deskripsi isi variabel "cl"

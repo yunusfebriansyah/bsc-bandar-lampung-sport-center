@@ -2,9 +2,7 @@ package com.bsc_bandarlampungsportcenter;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.support.annotation.NonNull;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,18 +25,16 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RegisterActivity extends AppCompatActivity {
-
-  Intent intent;
+public class AddAdminActivity extends AppCompatActivity {
 
   EditText edtName, edtUsername, edtEmail, edtPassword, edtPasswordRepeat;
-  TextView errorName, errorUsername, errorEmail, errorPassword, errorPasswordRepeat, linkToLogin;
-  Button btnRegister;
+  TextView errorName, errorUsername, errorEmail, errorPassword, errorPasswordRepeat;
+  Button btnAddAdmin;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_register);
+    setContentView(R.layout.activity_add_admin);
     getSupportActionBar().hide();
 
     edtName = findViewById(R.id.name);
@@ -46,22 +42,15 @@ public class RegisterActivity extends AppCompatActivity {
     edtEmail = findViewById(R.id.email);
     edtPassword = findViewById(R.id.password);
     edtPasswordRepeat = findViewById(R.id.password_repeat);
-    btnRegister = findViewById(R.id.btn_register);
+    btnAddAdmin = findViewById(R.id.btn_add_admin);
     errorName = findViewById(R.id.error_name);
     errorUsername = findViewById(R.id.error_username);
     errorEmail = findViewById(R.id.error_email);
     errorPassword = findViewById(R.id.error_password);
     errorPasswordRepeat = findViewById(R.id.error_password_repeat);
-    linkToLogin = findViewById(R.id.to_login);
 
-    linkToLogin.setOnClickListener(view -> {
-      intent = new Intent(this, LoginActivity.class);
-      intent.putExtra("message", "");
-      startActivity(intent);
-    });
-
-    btnRegister.setOnClickListener( view -> {
-      register();
+    btnAddAdmin.setOnClickListener( view -> {
+      addAdmin();
     });
 
   }
@@ -75,7 +64,7 @@ public class RegisterActivity extends AppCompatActivity {
     errorPasswordRepeat.setVisibility(View.GONE);
   }
 
-  private void register()
+  private void addAdmin()
   {
     //  deklarasi variabel komponen "Progress Dialog"
     ProgressDialog pd;
@@ -96,7 +85,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     APIRequestUser ardData = RetroServer.konekRetrofit().create(APIRequestUser.class);
-    Call<ResponseModelUser> register = ardData.register(
+    Call<ResponseModelUser> register = ardData.registerAdmin(
             edtName.getText().toString(),
             edtUsername.getText().toString(),
             edtEmail.getText().toString(),
@@ -107,14 +96,19 @@ public class RegisterActivity extends AppCompatActivity {
       //  ketika data berhasil diambil
       @Override
       public void onResponse(Call<ResponseModelUser> call, Response<ResponseModelUser> response) {
+
         ErrorModel dataError = response.body().getErrors().get(0);
         int status = response.body().getStatus();
 
         if( status == 200 ) {
-          intent = new Intent(RegisterActivity.this, LoginActivity.class);
-          intent.putExtra("message", "Login berhasil. Silahkan login.");
-          startActivity(intent);
-          finish();
+          pd.dismiss();
+          Toast.makeText(AddAdminActivity.this, "Admin berhasil ditambah.", Toast.LENGTH_SHORT).show();
+          Handler handler = new Handler();
+          handler.postDelayed(new Runnable() {
+            public void run() {
+              finish();
+            }
+          }, 1000);
         }else{
           String errorValueName = dataError.getName(), errorValueUsername = dataError.getUsername(), errorValueEmail = dataError.getEmail(), errorValuePassword = dataError.getPassword();
 
@@ -138,10 +132,9 @@ public class RegisterActivity extends AppCompatActivity {
             errorPassword.setVisibility(View.VISIBLE);
           }
 
-        }
+          pd.dismiss();
 
-        //  tutup progress dialog
-        pd.dismiss();
+        }
       }
       //  ketika data gagal diambil
       @Override
@@ -149,7 +142,7 @@ public class RegisterActivity extends AppCompatActivity {
         //  hilangkan progress dialog
         pd.dismiss();
         //  tampilkan pesan
-        Toast.makeText(RegisterActivity.this, "Registrasi gagal!" + t.getMessage(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(AddAdminActivity.this, "Gagal diproses!" + t.getMessage(), Toast.LENGTH_SHORT).show();
 
       }
     });
