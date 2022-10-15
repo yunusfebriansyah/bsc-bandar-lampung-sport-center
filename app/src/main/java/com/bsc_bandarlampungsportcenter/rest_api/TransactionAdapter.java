@@ -1,24 +1,39 @@
 package com.bsc_bandarlampungsportcenter.rest_api;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bsc_bandarlampungsportcenter.MainActivity;
 import com.bsc_bandarlampungsportcenter.R;
 import com.bsc_bandarlampungsportcenter.TransactionDetailActivity;
+import com.bsc_bandarlampungsportcenter.session.User;
+import com.bsc_bandarlampungsportcenter.ui.TransactionFragment;
 
 import java.text.NumberFormat;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.HolderData> {
 
   private Context ctx;
+
+  AlertDialog.Builder builder;
+
   private List<TransactionModel> listTransactions;
   Intent intent;
 
@@ -56,13 +71,77 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
       holder.failedStatus.setVisibility(View.VISIBLE);
     }
 
-    holder.transactionItem.setOnClickListener(view -> {
+    if(User.isAdmin() && model.getStatus().equalsIgnoreCase("menunggu pembayaran") ) {
 
-      intent = new Intent(ctx, TransactionDetailActivity.class);
-      intent.putExtra("id", model.getId());
-      ctx.startActivity(intent);
+      holder.transactionItem.setOnClickListener(view -> {
 
-    });
+          builder = new AlertDialog.Builder(view.getContext());
+          final CharSequence[] dialogItem = {"Lihat detail", "Setujui", "Tolak"};
+          builder.setTitle("Aksi transaksi...");
+          builder.setItems(dialogItem, (dialog, which) -> {
+            switch (which) {
+              case 0:
+                intent = new Intent(ctx, TransactionDetailActivity.class);
+                intent.putExtra("id", model.getId());
+                ctx.startActivity(intent);
+                break;
+
+              case 1:
+                AlertDialog.Builder confirmAccept = new AlertDialog.Builder(view.getContext());
+                final CharSequence[] confirmAcceptItem = {"Ya", "Batal"};
+                confirmAccept.setTitle("Yakin ingin menyetujui transaksi?");
+                confirmAccept.setItems(confirmAcceptItem,(dialogConfirm, whichConfirm)->{
+                  switch (whichConfirm) {
+                    case 0:
+                      changeTransaction(holder.id.getText().toString(),"lunas");
+                      Handler handler = new Handler();
+                      handler.postDelayed(new Runnable() {
+                        public void run() {
+                          ((MainActivity)ctx).changeFragment();
+                        }
+                      }, 1000);
+                      break;
+                  }
+                });
+                confirmAccept.create().show();
+                break;
+
+              case 2:
+                AlertDialog.Builder confirmDenied = new AlertDialog.Builder(view.getContext());
+                final CharSequence[] confirmDeniedItem = {"Ya", "Batal"};
+                confirmDenied.setTitle("Yakin ingin menolak transaksi?");
+                confirmDenied.setItems(confirmDeniedItem,(dialogConfirm, whichConfirm)->{
+                  switch (whichConfirm) {
+                    case 0:
+                      changeTransaction(holder.id.getText().toString(),"ditolak");
+                      Handler handler = new Handler();
+                      handler.postDelayed(new Runnable() {
+                        public void run() {
+                          ((MainActivity)ctx).changeFragment();
+                        }
+                      }, 1000);
+                      break;
+                  }
+                });
+                confirmDenied.create().show();
+                break;
+
+            }
+          });
+
+          builder.create().show();
+
+      });
+
+    }else {
+      holder.transactionItem.setOnClickListener(view -> {
+
+        intent = new Intent(ctx, TransactionDetailActivity.class);
+        intent.putExtra("id", model.getId());
+        ctx.startActivity(intent);
+
+      });
+    }
 
   }
 
@@ -91,6 +170,44 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
       totalPrice = itemView.findViewById(R.id.total_price);
 
     }
+  }
+
+  void changeTransaction (String id, String status)
+  {
+    //  deklarasi variabel komponen "Progress Dialog"
+    ProgressDialog pd;
+    //  setup progress dialog
+    pd = new ProgressDialog(ctx);
+    //  progress dialog tidak dapat di cancel
+    pd.setCancelable(false);
+    //  isi teks progress dialog
+    pd.setMessage("Mohon Tunggu ...");
+    //  tampilkan progress dialog
+    pd.show();
+
+    APIRequestTransaction ardData = RetroServer.konekRetrofit().create(APIRequestTransaction.class);
+    Call<ResponseModelTransaction> updateData = ardData.update(id, status);
+
+    //  deskripsi isi variabel "cl"
+    updateData.enqueue(new Callback<ResponseModelTransaction>() {
+      //  ketika data berhasil diambil
+      @Override
+      public void onResponse(Call<ResponseModelTransaction> call, Response<ResponseModelTransaction> response) {
+        //  tutup progress dialog
+        pd.dismiss();
+        Toast.makeText(ctx, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+
+      }
+      //  ketika data gagal diambil
+      @Override
+      public void onFailure(Call<ResponseModelTransaction> call, Throwable t) {
+        //  hilangkan progress dialog
+        pd.dismiss();
+        //  tampilkan pesan
+        Toast.makeText(ctx, "Gagal diproses!" + t.getMessage(), Toast.LENGTH_SHORT).show();
+
+      }
+    });
   }
 
 

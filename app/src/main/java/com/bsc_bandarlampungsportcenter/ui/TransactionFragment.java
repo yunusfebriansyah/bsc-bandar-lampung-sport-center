@@ -63,7 +63,8 @@ public class TransactionFragment extends Fragment {
     super.onResume();
   }
 
-  void tampilData (String id)
+
+  public void tampilData (String id)
   {
     //  deklarasi variabel komponen "Progress Dialog"
     ProgressDialog pd;
@@ -114,6 +115,7 @@ public class TransactionFragment extends Fragment {
       }
     });
   }
+
 
   @Override
   public void onDestroyView() {

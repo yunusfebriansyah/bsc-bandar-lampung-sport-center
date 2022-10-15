@@ -5,7 +5,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -15,6 +18,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.bsc_bandarlampungsportcenter.databinding.ActivityMainBinding;
 import com.bsc_bandarlampungsportcenter.session.Price;
 import com.bsc_bandarlampungsportcenter.session.User;
+import com.bsc_bandarlampungsportcenter.ui.TransactionFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,6 +28,10 @@ public class MainActivity extends AppCompatActivity {
   SQLiteDatabase db;
   Cursor cursor;
 
+  Bundle bundle;
+
+  FrameLayout fg;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     Price.setPrice(MainActivity.this);
@@ -32,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
     binding = ActivityMainBinding.inflate(getLayoutInflater());
     setContentView(binding.getRoot());
+
+    fg = findViewById(R.id.nav_host_fragment_activity_main);
 
     BottomNavigationView navView = findViewById(R.id.nav_view);
     // Passing each menu ID as a set of Ids because each
@@ -52,5 +62,12 @@ public class MainActivity extends AppCompatActivity {
     User.setIsAdmin(cursor.getString(1));
 
   }
+
+  public void changeFragment()
+  {
+    getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_activity_main, new TransactionFragment()).commit();
+  }
+
+
 
 }

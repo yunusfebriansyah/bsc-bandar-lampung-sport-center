@@ -139,7 +139,7 @@ public class EditProfileActivity extends AppCompatActivity {
             public void run() {
               finish();
             }
-          }, 1500);
+          }, 1000);
         }else{
           String errorValueName = dataError.getName(), errorValueUsername = dataError.getUsername(), errorValueEmail = dataError.getEmail();
 

@@ -134,9 +134,10 @@ public class TransactionDetailActivity extends AppCompatActivity {
           txtPendingStatus.setText(transactionStatus);
           txtPendingStatus.setVisibility(View.VISIBLE);
           if(!User.isAdmin()) {
-            actionAdmin.setVisibility(View.GONE);
             btnSeePeyment.setVisibility(View.VISIBLE);
             btnCancelTransaction.setVisibility(View.VISIBLE);
+          }else{
+            actionAdmin.setVisibility(View.VISIBLE);
           }
         }else{
           txtFailedStatus.setText(transactionStatus);
