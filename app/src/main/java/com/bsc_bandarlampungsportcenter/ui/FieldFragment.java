@@ -79,7 +79,7 @@ public class FieldFragment extends Fragment {
     super.onResume();
   }
 
-  void tampilData ()
+  public void tampilData ()
   {
     //  deklarasi variabel komponen "Progress Dialog"
     ProgressDialog pd;
