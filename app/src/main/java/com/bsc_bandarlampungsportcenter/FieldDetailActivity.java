@@ -81,6 +81,12 @@ public class FieldDetailActivity extends AppCompatActivity {
       startActivity(intent);
     });
 
+    btnSee360.setOnClickListener(view -> {
+      intent = new Intent(FieldDetailActivity.this, VRPanoramaViewActivity.class);
+      intent.putExtra("id", id);
+      startActivity(intent);
+    });
+
     btnDelete.setOnClickListener( view -> {
       AlertDialog.Builder confirm = new AlertDialog.Builder(view.getContext());
       final CharSequence[] confirmItem = {"Ya", "Batal"};
