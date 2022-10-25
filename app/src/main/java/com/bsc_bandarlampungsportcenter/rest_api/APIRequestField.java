@@ -30,7 +30,7 @@ public interface APIRequestField {
       @Part("name") RequestBody name,
       @Part("description") RequestBody description,
       @Part MultipartBody.Part photo,
-      @Part MultipartBody.Part photo_360
+      @Part ("photo_360") RequestBody photo_360
   );
 
   @Multipart
@@ -40,7 +40,7 @@ public interface APIRequestField {
       @Part("name") RequestBody name,
       @Part("description") RequestBody description,
       @Part MultipartBody.Part photo,
-      @Part MultipartBody.Part photo_360
+      @Part ("photo_360") RequestBody photo_360
   );
 
   @DELETE("fields/{id}")

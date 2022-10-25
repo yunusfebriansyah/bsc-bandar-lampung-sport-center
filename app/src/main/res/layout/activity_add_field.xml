@@ -87,7 +87,7 @@
 
         <TextView
             style="@style/label"
-            android:text="@string/field_360"
+            android:text="@string/link_field_360"
             android:layout_marginTop="0dp"/>
 
         <android.support.v7.widget.CardView
@@ -113,7 +113,14 @@
             android:layout_width="match_parent"
             android:text="@string/select_photo"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginBottom="5dp"
+            android:visibility="gone"/>
+
+        <EditText
+            android:id="@+id/edt_photo_360"
+            style="@style/input_text"
+            android:hint="@string/link_field_360"
+            android:inputType="textMultiLine"/>
 
         <TextView
             android:id="@+id/error_photo_360"

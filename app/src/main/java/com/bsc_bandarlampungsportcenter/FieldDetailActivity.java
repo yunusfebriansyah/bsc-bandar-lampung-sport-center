@@ -3,6 +3,7 @@ package com.bsc_bandarlampungsportcenter;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -38,11 +39,11 @@ public class FieldDetailActivity extends AppCompatActivity {
   Intent intent;
   Bundle bundle;
   ImageView photo;
-  TextView txtId, txtName, txtDescription, txtPhoto360, txtNotAvailable;
+  TextView txtId, txtName, txtDescription, txtNotAvailable;
   Button btnSee360, btnBookingNow, btnDelete, btnChange;
   LinearLayout actionAdmin;
 
-  String id;
+  String id, photo360;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +53,6 @@ public class FieldDetailActivity extends AppCompatActivity {
 
     photo = findViewById(R.id.photo);
     txtId = findViewById(R.id.id);
-    txtPhoto360 = findViewById(R.id.photo_360);
     txtName = findViewById(R.id.name);
     txtDescription = findViewById(R.id.description);
     txtNotAvailable = findViewById(R.id.not_available);
@@ -82,8 +82,7 @@ public class FieldDetailActivity extends AppCompatActivity {
     });
 
     btnSee360.setOnClickListener(view -> {
-      intent = new Intent(FieldDetailActivity.this, VRPanoramaViewActivity.class);
-      intent.putExtra("id", id);
+      intent = new Intent(Intent.ACTION_VIEW, Uri.parse(photo360));
       startActivity(intent);
     });
 
@@ -141,7 +140,7 @@ public class FieldDetailActivity extends AppCompatActivity {
         FieldModel data = response.body().getData().get(0);
         Picasso.get().load(RetroServer.getBASE_URL_FILE() + String.valueOf(data.getPhoto())).into(photo);
         txtId.setText(String.valueOf(data.getId()));
-        txtPhoto360.setText(RetroServer.getBASE_URL_FILE() + data.getPhoto_360());
+        photo360 = data.getPhoto_360();
         txtName.setText(String.valueOf(data.getName()));
         txtDescription.setText(String.valueOf(data.getDescription()));
 

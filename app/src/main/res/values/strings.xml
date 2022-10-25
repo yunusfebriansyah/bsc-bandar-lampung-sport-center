@@ -74,6 +74,7 @@
     <string name="description">Deskripsi</string>
     <string name="field_photo">Foto Lapangan</string>
     <string name="field_360">Foto 360</string>
+    <string name="link_field_360">Link Google Street 360</string>
 
 
     <!-- Link text -->

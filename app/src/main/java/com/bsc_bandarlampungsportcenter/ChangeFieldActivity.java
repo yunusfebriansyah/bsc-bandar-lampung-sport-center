@@ -44,7 +44,7 @@ public class ChangeFieldActivity extends AppCompatActivity {
   Bundle bundle;
 
   TextView errorName, errorDescription, errorPhoto, errorPhoto360;
-  EditText edtName, edtDescription;
+  EditText edtName, edtDescription, edtPhoto360;
   Button btnSelectPhoto, btnSelectPhoto360, btnChange;
   ImageView photo, photo360;
 
@@ -65,6 +65,7 @@ public class ChangeFieldActivity extends AppCompatActivity {
     errorPhoto = findViewById(R.id.error_photo);
     errorPhoto360 = findViewById(R.id.error_photo_360);
     edtName = findViewById(R.id.name);
+    edtPhoto360 = findViewById(R.id.edt_photo_360);
     edtDescription = findViewById(R.id.description);
     btnSelectPhoto = findViewById(R.id.select_photo);
     btnSelectPhoto360 = findViewById(R.id.select_photo_360);
@@ -162,11 +163,12 @@ public class ChangeFieldActivity extends AppCompatActivity {
         //  tampilkan data ke dalam list
         FieldModel data = response.body().getData().get(0);
         Picasso.get().load(RetroServer.getBASE_URL_FILE() + String.valueOf(data.getPhoto())).into(photo);
-        Picasso.get().load(RetroServer.getBASE_URL_FILE() + String.valueOf(data.getPhoto_360())).into(photo360);
+//        Picasso.get().load(RetroServer.getBASE_URL_FILE() + String.valueOf(data.getPhoto_360())).into(photo360);
         edtName.setText(String.valueOf(data.getName()));
         edtDescription.setText(String.valueOf(data.getDescription()));
+        edtPhoto360.setText(String.valueOf(data.getPhoto_360()));
         photo.setVisibility(View.VISIBLE);
-        photo360.setVisibility(View.VISIBLE);
+//        photo360.setVisibility(View.VISIBLE);
         //  tutup progress dialog
         pd.dismiss();
       }
@@ -201,6 +203,7 @@ public class ChangeFieldActivity extends AppCompatActivity {
 
     RequestBody name = RequestBody.create(MediaType.parse("multipart/form-data"), edtName.getText().toString());
     RequestBody description = RequestBody.create(MediaType.parse("multipart/form-data"), edtDescription.getText().toString());
+    RequestBody photo360 = RequestBody.create(MediaType.parse("multipart/form-data"), edtPhoto360.getText().toString());
 
 
     File filePhoto;
@@ -215,16 +218,16 @@ public class ChangeFieldActivity extends AppCompatActivity {
       photo = MultipartBody.Part.createFormData("photo", filePhoto.getName(), requestFilePhoto);
     }
 
-    File filePhoto360;
-    RequestBody requestFilePhoto360;
-    MultipartBody.Part photo360;
-    if( photo360Path == null ) {
-      photo360 =null;
-    }else{
-      filePhoto360 = new File(photo360Path);
-      requestFilePhoto360 = RequestBody.create(MediaType.parse("multipart/form-data"), filePhoto360);
-      photo360 = MultipartBody.Part.createFormData("photo_360", filePhoto360.getName(), requestFilePhoto360);
-    }
+//    File filePhoto360;
+//    RequestBody requestFilePhoto360;
+//    MultipartBody.Part photo360;
+//    if( photo360Path == null ) {
+//      photo360 =null;
+//    }else{
+//      filePhoto360 = new File(photo360Path);
+//      requestFilePhoto360 = RequestBody.create(MediaType.parse("multipart/form-data"), filePhoto360);
+//      photo360 = MultipartBody.Part.createFormData("photo_360", filePhoto360.getName(), requestFilePhoto360);
+//    }
 
     updateField = ardData.changeField(id, name, description, photo, photo360);
 

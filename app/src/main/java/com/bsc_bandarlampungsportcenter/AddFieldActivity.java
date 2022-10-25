@@ -41,7 +41,7 @@ public class AddFieldActivity extends AppCompatActivity {
   Intent intent;
 
   TextView errorName, errorDescription, errorPhoto, errorPhoto360;
-  EditText edtName, edtDescription;
+  EditText edtName, edtDescription, edtPhoto360;
   Button btnSelectPhoto, btnSelectPhoto360, btnAdd;
   ImageView photo, photo360;
 
@@ -59,6 +59,7 @@ public class AddFieldActivity extends AppCompatActivity {
     errorPhoto = findViewById(R.id.error_photo);
     errorPhoto360 = findViewById(R.id.error_photo_360);
     edtName = findViewById(R.id.name);
+    edtPhoto360 = findViewById(R.id.edt_photo_360);
     edtDescription = findViewById(R.id.description);
     btnSelectPhoto = findViewById(R.id.select_photo);
     btnSelectPhoto360 = findViewById(R.id.select_photo_360);
@@ -141,18 +142,9 @@ public class AddFieldActivity extends AppCompatActivity {
 
     errorGone();
 
-    if( photoPath == null || photo360Path == null ){
-
-      if( photoPath == null ) {
-        errorPhoto.setText("Photo is required!");
-        errorPhoto.setVisibility(View.VISIBLE);
-      }
-
-      if( photo360Path == null ) {
-        errorPhoto360.setText("Photo 360 is required!");
-        errorPhoto360.setVisibility(View.VISIBLE);
-      }
-
+    if( photoPath == null ) {
+      errorPhoto.setText("Photo is required!");
+      errorPhoto.setVisibility(View.VISIBLE);
       pd.dismiss();
 
     }else {
@@ -161,14 +153,15 @@ public class AddFieldActivity extends AppCompatActivity {
 
       RequestBody name = RequestBody.create(MediaType.parse("multipart/form-data"), edtName.getText().toString());
       RequestBody description = RequestBody.create(MediaType.parse("multipart/form-data"), edtDescription.getText().toString());
+      RequestBody photo360 = RequestBody.create(MediaType.parse("multipart/form-data"), edtPhoto360.getText().toString());
 
       File filePhoto = new File(photoPath);
       RequestBody requestFilePhoto = RequestBody.create(MediaType.parse("multipart/form-data"), filePhoto);
       MultipartBody.Part photo = MultipartBody.Part.createFormData("photo", filePhoto.getName(), requestFilePhoto);
 
-      File filePhoto360 = new File(photo360Path);
-      RequestBody requestFilePhoto360 = RequestBody.create(MediaType.parse("multipart/form-data"), filePhoto360);
-      MultipartBody.Part photo360 = MultipartBody.Part.createFormData("photo_360", filePhoto360.getName(), requestFilePhoto360);
+//      File filePhoto360 = new File(photo360Path);
+//      RequestBody requestFilePhoto360 = RequestBody.create(MediaType.parse("multipart/form-data"), filePhoto360);
+//      MultipartBody.Part photo360 = MultipartBody.Part.createFormData("photo_360", filePhoto360.getName(), requestFilePhoto360);
 
       Call<ResponseModelField> addField = ardData.addField(name, description, photo, photo360);
 

@@ -38,13 +38,6 @@
                 android:visibility="gone"/>
 
             <TextView
-                android:id="@+id/photo_360"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="ID"
-                android:visibility="gone"/>
-
-            <TextView
                 android:id="@+id/name"
                 style="@style/section_title"
                 android:text="@string/bsc"/>
