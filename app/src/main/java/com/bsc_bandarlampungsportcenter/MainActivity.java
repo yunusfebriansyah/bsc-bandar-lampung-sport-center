@@ -3,13 +3,9 @@ package com.bsc_bandarlampungsportcenter;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -19,6 +15,7 @@ import com.bsc_bandarlampungsportcenter.databinding.ActivityMainBinding;
 import com.bsc_bandarlampungsportcenter.session.Price;
 import com.bsc_bandarlampungsportcenter.session.User;
 import com.bsc_bandarlampungsportcenter.ui.TransactionFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 

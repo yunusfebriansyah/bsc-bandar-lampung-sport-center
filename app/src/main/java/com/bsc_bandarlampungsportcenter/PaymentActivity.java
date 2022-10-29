@@ -1,10 +1,11 @@
 package com.bsc_bandarlampungsportcenter;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class PaymentActivity extends AppCompatActivity {
 

@@ -3,8 +3,6 @@ package com.bsc_bandarlampungsportcenter;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,12 +11,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.bsc_bandarlampungsportcenter.rest_api.APIRequestTransaction;
 import com.bsc_bandarlampungsportcenter.rest_api.TransactionModel;
 import com.bsc_bandarlampungsportcenter.rest_api.ResponseModelTransaction;
 import com.bsc_bandarlampungsportcenter.rest_api.RetroServer;
 import com.bsc_bandarlampungsportcenter.session.User;
-import com.bsc_bandarlampungsportcenter.ui.TransactionFragment;
 import com.squareup.picasso.Picasso;
 
 import java.text.NumberFormat;

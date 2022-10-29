@@ -1,12 +1,13 @@
 package com.bsc_bandarlampungsportcenter;
 
 import android.app.ProgressDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.bsc_bandarlampungsportcenter.rest_api.RetroServer;
 
