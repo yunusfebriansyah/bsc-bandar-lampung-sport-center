@@ -5,9 +5,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetroServer {
 
-  private static final String BASE_URL_API = "http://10.0.2.2:8000/api/";
-  private static final String BASE_URL = "http://10.0.2.2:8000/";
-  private static final String BASE_URL_FILE = "http://10.0.2.2:8000/storage/";
+  private static final String BASE_URL_API = "http://rapormasmifda.my.id/api/";
+  private static final String BASE_URL = "http://rapormasmifda.my.id/";
+  private static final String BASE_URL_FILE = "http://rapormasmifda.my.id/storage/";
 
   public static String getBASE_URL() { return BASE_URL; }
   public static String getBASE_URL_FILE() { return BASE_URL_FILE; }
