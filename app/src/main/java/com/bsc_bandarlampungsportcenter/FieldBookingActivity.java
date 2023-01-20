@@ -1,6 +1,7 @@
 package com.bsc_bandarlampungsportcenter;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Bundle;
 import android.view.View;
@@ -47,6 +48,7 @@ public class FieldBookingActivity extends AppCompatActivity {
   String[] textStartAtItems, textEndAtItems;
   ArrayAdapter<String> startAtAdapter, endAtAdapter;
   int longOfBooking, discon, price;
+  Intent intent;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -355,11 +357,12 @@ public class FieldBookingActivity extends AppCompatActivity {
         //  tutup progress dialog
         pd.dismiss();
         Toast.makeText(FieldBookingActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-        new Handler().postDelayed(new Runnable(){
-          @Override
-          public void run() {
-            finish();
-          }
+        new Handler().postDelayed(() -> {
+          intent = new Intent(FieldBookingActivity.this, TransactionDetailActivity.class);
+          intent.putExtra("id", response.body().getData().get(0).getId());
+          intent.putExtra("message", "success");
+          startActivity(intent);
+          finish();
         }, 1000);
       }
       //  ketika data gagal diambil

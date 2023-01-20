@@ -85,6 +85,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
               case 0:
                 intent = new Intent(ctx, TransactionDetailActivity.class);
                 intent.putExtra("id", model.getId());
+                intent.putExtra("message", "");
                 ctx.startActivity(intent);
                 break;
 
@@ -130,6 +131,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
         intent = new Intent(ctx, TransactionDetailActivity.class);
         intent.putExtra("id", model.getId());
+        intent.putExtra("message", "");
         ctx.startActivity(intent);
 
       });

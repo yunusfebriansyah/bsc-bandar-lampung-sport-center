@@ -115,8 +115,15 @@ public class TransactionDetailActivity extends AppCompatActivity {
 
     bundle = getIntent().getExtras();
     String id = String.valueOf(bundle.get("id"));
+    String message = String.valueOf(bundle.get("message"));
     if( !id.isEmpty() ) {
       tampilData(id);
+    }
+
+    if( !message.isEmpty() ) {
+      intent = new Intent(TransactionDetailActivity.this, PaymentActivity.class);
+      intent.putExtra("message", message);
+      startActivity(intent);
     }
 
     getSupportActionBar().hide();
