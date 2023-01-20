@@ -47,7 +47,6 @@ public class TransactionFragment extends Fragment {
     vw = inflater.inflate(R.layout.fragment_transaction, container, false);
 
     txtBlank = vw.findViewById(R.id.txt_blank);
-
     rcv_data = vw.findViewById(R.id.rcv_data);
     lm_data = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
 

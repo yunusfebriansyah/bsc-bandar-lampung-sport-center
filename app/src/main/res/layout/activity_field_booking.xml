@@ -66,6 +66,13 @@
                 android:text="@string/booking_field"
                 android:layout_marginTop="7dp"/>
 
+            <TextView
+                android:id="@+id/for_today_booking"
+                style="@style/section_title"
+                android:text="Penyewaan untuk hari ini,"
+                android:textSize="14dp"
+                android:layout_marginTop="7dp"/>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">

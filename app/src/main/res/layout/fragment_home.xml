@@ -41,12 +41,33 @@
 
             <TextView
                 style="@style/section_title"
+                android:text="@string/jam_buka"/>
+
+            <TextView
+                style="@style/link_text"
+                android:text="@string/opened"/>
+
+            <TextView
+                style="@style/section_title"
                 android:text="@string/price_today"/>
 
             <TextView
                 android:id="@+id/txt_price"
                 style="@style/price_text"
-                android:text="@string/price"
+                android:text="@string/price"/>
+
+            <TextView
+                style="@style/section_title"
+                android:text="@string/for_you"/>
+
+            <TextView
+                android:id="@+id/txt_blank"
+                style="@style/blank_text"
+                android:textAlignment="textStart"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcv_data"
+                style="@style/recyclerview_style"
                 android:layout_marginBottom="200dp"/>
 
 

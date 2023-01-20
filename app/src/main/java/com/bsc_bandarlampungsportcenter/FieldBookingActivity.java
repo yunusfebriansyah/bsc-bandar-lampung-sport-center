@@ -31,16 +31,20 @@ import java.text.NumberFormat;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.Locale;
 
 public class FieldBookingActivity extends AppCompatActivity {
 
   Bundle bundle;
   ImageView imgField;
-  TextView txtId, txtName, txtPrice, txtPriceMoney, txtBookingPricePerHour, txtLongOfBooking, txtBookingPrice, txtDiscon, txtPriceTotal;
+  TextView txtForTodayBooking, txtId, txtName, txtPrice, txtPriceMoney, txtBookingPricePerHour, txtLongOfBooking, txtBookingPrice, txtDiscon, txtPriceTotal;
   Button btnCancel, btnBooking;
   Spinner spStartAt, spEndAt;
-  int startAtItems[], endAtItems[];
-  String textStartAtItems[], textEndAtItems[];
+  int[] startAtItems, endAtItems;
+  String[] textStartAtItems, textEndAtItems;
   ArrayAdapter<String> startAtAdapter, endAtAdapter;
   int longOfBooking, discon, price;
 
@@ -52,6 +56,7 @@ public class FieldBookingActivity extends AppCompatActivity {
     Price.setPrice(FieldBookingActivity.this);
 
     imgField = findViewById(R.id.photo);
+    txtForTodayBooking = findViewById(R.id.for_today_booking);
     txtId = findViewById(R.id.id);
     txtName = findViewById(R.id.name);
     txtPrice = findViewById(R.id.price);
@@ -66,6 +71,12 @@ public class FieldBookingActivity extends AppCompatActivity {
 
     btnCancel = findViewById(R.id.btn_cancel);
     btnBooking = findViewById(R.id.btn_booking);
+
+    Date date = new Date();
+    Locale locale = new Locale("id", "ID");
+    SimpleDateFormat DateFor = new SimpleDateFormat("dd-MM-yyyy", locale);
+    String stringDate= DateFor.format(date);
+    txtForTodayBooking.setText("Penyewaan untuk hari ini, " + stringDate);
 
     txtPrice.setText(String.valueOf(Price.getPrice()));
     txtPriceMoney.setText(Price.getPriceMoney() + " / jam");
@@ -166,12 +177,12 @@ public class FieldBookingActivity extends AppCompatActivity {
         textStartAtItems = response.body().getText_start_at();
         textEndAtItems = response.body().getText_end_at();
 
-        startAtAdapter = new ArrayAdapter<String>(FieldBookingActivity.this,
-                R.layout.spinner_list,textStartAtItems);
+        startAtAdapter = new ArrayAdapter<>(FieldBookingActivity.this,
+                R.layout.spinner_list, textStartAtItems);
         startAtAdapter.setDropDownViewResource(R.layout.spinner_list);
         spStartAt.setAdapter(startAtAdapter);
 
-        endAtAdapter = new ArrayAdapter<String>(FieldBookingActivity.this,
+        endAtAdapter = new ArrayAdapter<>(FieldBookingActivity.this,
                 R.layout.spinner_list,textEndAtItems);
         endAtAdapter.setDropDownViewResource(R.layout.spinner_list);
         spEndAt.setAdapter(endAtAdapter);
@@ -233,7 +244,7 @@ public class FieldBookingActivity extends AppCompatActivity {
         endAtItems = response.body().getEnd_at();
         textEndAtItems = response.body().getText_end_at();
 
-        endAtAdapter = new ArrayAdapter<String>(FieldBookingActivity.this,
+        endAtAdapter = new ArrayAdapter<>(FieldBookingActivity.this,
                 R.layout.spinner_list,textEndAtItems);
         endAtAdapter.setDropDownViewResource(R.layout.spinner_list);
         spEndAt.setAdapter(endAtAdapter);

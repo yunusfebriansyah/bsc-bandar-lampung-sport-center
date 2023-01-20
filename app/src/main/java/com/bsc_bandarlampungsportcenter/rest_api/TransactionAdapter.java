@@ -55,6 +55,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
   public void onBindViewHolder(@NonNull HolderData holder, int position) {
     TransactionModel model = listTransactions.get(position);
     holder.id.setText(String.valueOf(model.getId()));
+    holder.booker.setText("Penyewa : " + model.getUser_name());
     holder.transactionCode.setText(String.valueOf(model.getTransaction_code()));
     holder.createdAt.setText(String.valueOf(model.getBooking_date()));
     holder.fieldName.setText(String.valueOf(model.getField_name()));
@@ -143,7 +144,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
 
   public class HolderData extends RecyclerView.ViewHolder{
-    TextView id, transactionCode, successStatus, pendingStatus, failedStatus, createdAt, fieldName, bookingTime, totalPrice;
+    TextView id, booker, transactionCode, successStatus, pendingStatus, failedStatus, createdAt, fieldName, bookingTime, totalPrice;
     CardView transactionItem;
 
     public HolderData(@NonNull View itemView) {
@@ -151,6 +152,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
       transactionItem = itemView.findViewById(R.id.transaction_item);
       id = itemView.findViewById(R.id.id);
+      booker = itemView.findViewById(R.id.booker);
       transactionCode = itemView.findViewById(R.id.transaction_code);
       successStatus = itemView.findViewById(R.id.success_status);
       pendingStatus = itemView.findViewById(R.id.pending_status);

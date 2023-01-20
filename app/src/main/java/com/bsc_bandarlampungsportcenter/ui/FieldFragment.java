@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bsc_bandarlampungsportcenter.AddFieldActivity;
@@ -55,7 +56,7 @@ public class FieldFragment extends Fragment {
     btnAdd = vw.findViewById(R.id.btn_add);
 
     rcv_data = vw.findViewById(R.id.rcv_data);
-    lm_data = new GridLayoutManager(getActivity(), 2);
+    lm_data = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
 
     rcv_data.setLayoutManager(lm_data);
 

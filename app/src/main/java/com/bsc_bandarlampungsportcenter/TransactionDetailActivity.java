@@ -34,7 +34,7 @@ public class TransactionDetailActivity extends AppCompatActivity {
   LinearLayout actionAdmin;
   
   ImageView fieldPhoto;
-  TextView txtId, txtTransactionCode, txtSuccessStatus, txtPendingStatus, txtFailedStatus, txtCreatedAt, txtFieldName, txtStartAt, txtEndAt, txtLongOfBooking, txtBookingPricePerHour, txtPrice, txtDiscon, txtPriceTotal;
+  TextView txtId, txtBooker, txtTransactionCode, txtSuccessStatus, txtPendingStatus, txtFailedStatus, txtCreatedAt, txtFieldName, txtStartAt, txtEndAt, txtLongOfBooking, txtBookingPricePerHour, txtPrice, txtDiscon, txtPriceTotal, txtStatusDescription;
   Button btnSeePeyment, btnCancelTransaction, btnDenied, btnAccept;
 
   @Override
@@ -44,6 +44,7 @@ public class TransactionDetailActivity extends AppCompatActivity {
     
     fieldPhoto = findViewById(R.id.field_photo);
     txtId = findViewById(R.id.id);
+    txtBooker = findViewById(R.id.booker);
     txtTransactionCode = findViewById(R.id.transaction_code);
     txtSuccessStatus = findViewById(R.id.success_status);
     txtPendingStatus = findViewById(R.id.pending_status);
@@ -57,6 +58,7 @@ public class TransactionDetailActivity extends AppCompatActivity {
     txtPrice = findViewById(R.id.price);
     txtDiscon = findViewById(R.id.discon);
     txtPriceTotal = findViewById(R.id.price_total);
+    txtStatusDescription = findViewById(R.id.description_status);
     btnSeePeyment = findViewById(R.id.btn_see_payment);
     btnCancelTransaction = findViewById(R.id.btn_cancel_transaction);
     actionAdmin = findViewById(R.id.action_admin);
@@ -146,6 +148,7 @@ public class TransactionDetailActivity extends AppCompatActivity {
         TransactionModel data = response.body().getData().get(0);
         Picasso.get().load(RetroServer.getBASE_URL_FILE() + data.getField_photo()).into(fieldPhoto);
         txtId.setText(String.valueOf(data.getId()));
+        txtBooker.setText(String.valueOf(data.getUser_name()));
         txtTransactionCode.setText(String.valueOf(data.getTransaction_code()));
         txtCreatedAt.setText(String.valueOf(data.getBooking_date()));
         txtFieldName.setText(String.valueOf(data.getField_name()));
@@ -161,9 +164,11 @@ public class TransactionDetailActivity extends AppCompatActivity {
         if( transactionStatus.equalsIgnoreCase("lunas") ) {
           txtSuccessStatus.setText(transactionStatus);
           txtSuccessStatus.setVisibility(View.VISIBLE);
+          txtStatusDescription.setText("Terimakasih atas kepercayaan anda");
         }else if( transactionStatus.equalsIgnoreCase("menunggu pembayaran") ) {
           txtPendingStatus.setText(transactionStatus);
           txtPendingStatus.setVisibility(View.VISIBLE);
+          txtStatusDescription.setText("Booking terdaftar, silahkan melakukan pembayaran");
           if(!User.isAdmin()) {
             btnSeePeyment.setVisibility(View.VISIBLE);
             btnCancelTransaction.setVisibility(View.VISIBLE);
@@ -171,6 +176,15 @@ public class TransactionDetailActivity extends AppCompatActivity {
             actionAdmin.setVisibility(View.VISIBLE);
           }
         }else{
+          if( transactionStatus.equalsIgnoreCase("didahului") ) {
+            txtStatusDescription.setText("Penyewa lain sudah terlebih dahulu membayar");
+          }
+          if( transactionStatus.equalsIgnoreCase("dibatalkan") ) {
+            txtStatusDescription.setText("Anda membatalkan penyewaan");
+          }
+          if( transactionStatus.equalsIgnoreCase("ditolak") ) {
+            txtStatusDescription.setText("Data tidak valid atau pembayaran tidak dilakukan");
+          }
           txtFailedStatus.setText(transactionStatus);
           txtFailedStatus.setVisibility(View.VISIBLE);
         }
