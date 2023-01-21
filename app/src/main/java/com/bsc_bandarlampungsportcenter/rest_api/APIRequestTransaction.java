@@ -14,6 +14,9 @@ public interface APIRequestTransaction {
       @Path("id") String id
   );
 
+  @GET("transactions/denied-yesterday")
+  Call<ResponseModelTransaction> deniedYesterday();
+
   @GET("transactions/{id}")
   Call<ResponseModelTransaction> getDetailData(
       @Path("id") String id

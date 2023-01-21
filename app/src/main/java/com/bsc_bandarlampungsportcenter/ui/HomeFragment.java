@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +15,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.CompositePageTransformer;
-import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.bsc_bandarlampungsportcenter.R;
@@ -25,11 +22,14 @@ import com.bsc_bandarlampungsportcenter.SliderAdapter;
 import com.bsc_bandarlampungsportcenter.SliderItem;
 import com.bsc_bandarlampungsportcenter.databinding.FragmentHomeBinding;
 import com.bsc_bandarlampungsportcenter.rest_api.APIRequestField;
+import com.bsc_bandarlampungsportcenter.rest_api.APIRequestTransaction;
 import com.bsc_bandarlampungsportcenter.rest_api.FieldAdapter;
 import com.bsc_bandarlampungsportcenter.rest_api.FieldModel;
 import com.bsc_bandarlampungsportcenter.rest_api.ResponseModelField;
+import com.bsc_bandarlampungsportcenter.rest_api.ResponseModelTransaction;
 import com.bsc_bandarlampungsportcenter.rest_api.RetroServer;
 import com.bsc_bandarlampungsportcenter.session.Price;
+import com.bsc_bandarlampungsportcenter.session.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,6 +102,10 @@ public class HomeFragment extends Fragment {
 
     tampilData();
 
+    if( User.isAdmin() && !User.getIsDeniedYesterday()){
+      deniedYesterday();
+    }
+
     return vw;
   }
 
@@ -172,6 +176,43 @@ public class HomeFragment extends Fragment {
         pd.dismiss();
         //  tampilkan pesan
         Toast.makeText(getActivity(), "Data gagal ditampilkan!" + t.getMessage(), Toast.LENGTH_SHORT).show();
+
+      }
+    });
+  }
+
+  public void deniedYesterday ()
+  {
+    //  deklarasi variabel komponen "Progress Dialog"
+    ProgressDialog pd;
+    //  setup progress dialog
+    pd = new ProgressDialog(getActivity());
+    //  progress dialog tidak dapat di cancel
+    pd.setCancelable(false);
+    //  isi teks progress dialog
+    pd.setMessage("Mohon Tunggu ...");
+    //  tampilkan progress dialog
+    pd.show();
+
+    APIRequestTransaction ardData = RetroServer.konekRetrofit().create(APIRequestTransaction.class);
+    Call<ResponseModelTransaction> deniedYesterday = ardData.deniedYesterday();
+
+    //  deskripsi isi variabel "cl"
+    deniedYesterday.enqueue(new Callback<ResponseModelTransaction>() {
+      //  ketika data berhasil diambil
+      @Override
+      public void onResponse(Call<ResponseModelTransaction> call, Response<ResponseModelTransaction> response) {
+        User.setIsDeniedYesterday(true);
+        //  tutup progress dialog
+        pd.dismiss();
+      }
+      //  ketika data gagal diambil
+      @Override
+      public void onFailure(Call<ResponseModelTransaction> call, Throwable t) {
+        //  hilangkan progress dialog
+        pd.dismiss();
+        //  tampilkan pesan
+        Toast.makeText(getActivity(), "Data gagal diproses!" + t.getMessage(), Toast.LENGTH_SHORT).show();
 
       }
     });

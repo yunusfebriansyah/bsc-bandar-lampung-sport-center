@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +41,7 @@ public class TransactionFragment extends Fragment {
   RecyclerView.Adapter ad_data;
   RecyclerView.LayoutManager lm_data;
   List<TransactionModel> list_transaction = new ArrayList<>();
+  Spinner filterStatus;
 
   TextView txtBlank;
 
@@ -49,7 +52,10 @@ public class TransactionFragment extends Fragment {
     txtBlank = vw.findViewById(R.id.txt_blank);
     rcv_data = vw.findViewById(R.id.rcv_data);
     lm_data = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-
+    filterStatus = vw.findViewById(R.id.filter_status);
+    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, new String[]{"menunggu pembayaran", "lunas", "didahului", "dibatalkan", "ditolak"});
+    arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    filterStatus.setAdapter(arrayAdapter);
     rcv_data.setLayoutManager(lm_data);
 
     tampilData(User.getUserId());

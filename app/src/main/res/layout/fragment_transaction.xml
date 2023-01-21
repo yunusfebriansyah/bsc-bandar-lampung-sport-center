@@ -21,6 +21,29 @@
                 style="@style/fragment_title"
                 android:text="@string/list_transaction"/>
 
+            <EditText
+                android:id="@+id/edt_keyword"
+                style="@style/input_text"
+                android:background="@drawable/input_text"
+                android:hint="Cari keyword"
+                android:paddingHorizontal="7dp"
+                android:paddingVertical="5dp"
+                android:layout_marginBottom="5dp"/>
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/filter_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                style="@style/Widget.AppCompat.Spinner.Underlined"
+                android:spinnerMode="dialog"/>
+
+            <Button
+                android:id="@+id/btn_search"
+                style="@style/button_primary"
+                android:layout_width="match_parent"
+                android:text="Cari"/>
+
             <TextView
                 android:id="@+id/txt_blank"
                 style="@style/blank_text"/>
