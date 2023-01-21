@@ -6,12 +6,15 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface APIRequestTransaction {
 
   @GET("transactions/all/{id}")
   Call<ResponseModelTransaction> getAllTransactions(
-      @Path("id") String id
+      @Path("id") String id,
+      @Query("keyword") String keyword,
+      @Query("status") String status
   );
 
   @GET("transactions/denied-yesterday")

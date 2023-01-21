@@ -25,7 +25,7 @@
                 android:id="@+id/edt_keyword"
                 style="@style/input_text"
                 android:background="@drawable/input_text"
-                android:hint="Cari keyword"
+                android:hint="kode transaksi, lapangan, dll"
                 android:paddingHorizontal="7dp"
                 android:paddingVertical="5dp"
                 android:layout_marginBottom="5dp"/>

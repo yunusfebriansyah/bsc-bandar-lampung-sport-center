@@ -1,11 +1,14 @@
 package com.bsc_bandarlampungsportcenter.ui;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,7 +19,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bsc_bandarlampungsportcenter.R;
-import com.bsc_bandarlampungsportcenter.databinding.FragmentTransactionBinding;
 import com.bsc_bandarlampungsportcenter.rest_api.APIRequestTransaction;
 import com.bsc_bandarlampungsportcenter.rest_api.TransactionAdapter;
 import com.bsc_bandarlampungsportcenter.rest_api.TransactionModel;
@@ -33,8 +35,6 @@ import retrofit2.Response;
 
 public class TransactionFragment extends Fragment {
 
-  private FragmentTransactionBinding binding;
-
   View vw;
 
   RecyclerView rcv_data;
@@ -42,34 +42,42 @@ public class TransactionFragment extends Fragment {
   RecyclerView.LayoutManager lm_data;
   List<TransactionModel> list_transaction = new ArrayList<>();
   Spinner filterStatus;
+  String[] statusTransaction = new String[]{"menunggu pembayaran", "lunas", "didahului", "dibatalkan", "ditolak"};
 
   TextView txtBlank;
+  EditText edtKeyword;
+  Button btnSearch;
 
   public View onCreateView(@NonNull LayoutInflater inflater,
                            ViewGroup container, Bundle savedInstanceState) {
     vw = inflater.inflate(R.layout.fragment_transaction, container, false);
 
     txtBlank = vw.findViewById(R.id.txt_blank);
+    edtKeyword = vw.findViewById(R.id.edt_keyword);
+    btnSearch = vw.findViewById(R.id.btn_search);
     rcv_data = vw.findViewById(R.id.rcv_data);
+
+    btnSearch.setOnClickListener( view -> tampilData(User.getUserId(), edtKeyword.getText().toString(), filterStatus.getSelectedItem().toString()));
+
     lm_data = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
     filterStatus = vw.findViewById(R.id.filter_status);
-    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, new String[]{"menunggu pembayaran", "lunas", "didahului", "dibatalkan", "ditolak"});
+    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, statusTransaction);
     arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     filterStatus.setAdapter(arrayAdapter);
     rcv_data.setLayoutManager(lm_data);
 
-    tampilData(User.getUserId());
+    tampilData(User.getUserId(), edtKeyword.getText().toString(), filterStatus.getSelectedItem().toString());
 
     return vw;
   }
 
   @Override
   public void onResume() {
-    tampilData(User.getUserId());
+    tampilData(User.getUserId(), edtKeyword.getText().toString(), filterStatus.getSelectedItem().toString());
     super.onResume();
   }
 
-  public void tampilData (String id)
+  public void tampilData (String id, String keyword, String status)
   {
     //  deklarasi variabel komponen "Progress Dialog"
     ProgressDialog pd;
@@ -83,14 +91,16 @@ public class TransactionFragment extends Fragment {
     pd.show();
 
     APIRequestTransaction ardData = RetroServer.konekRetrofit().create(APIRequestTransaction.class);
-    Call<ResponseModelTransaction> tampilData = ardData.getAllTransactions(id);
+    Call<ResponseModelTransaction> tampilData = ardData.getAllTransactions(id, keyword, status);
 
     //  deskripsi isi variabel "cl"
     tampilData.enqueue(new Callback<ResponseModelTransaction>() {
       //  ketika data berhasil diambil
+      @SuppressLint("NotifyDataSetChanged")
       @Override
-      public void onResponse(Call<ResponseModelTransaction> call, Response<ResponseModelTransaction> response) {
+      public void onResponse(@NonNull Call<ResponseModelTransaction> call, @NonNull Response<ResponseModelTransaction> response) {
         //  tampilkan data ke dalam list
+        assert response.body() != null;
         list_transaction = response.body().getData();
         int count = response.body().getCount();
         if( count > 0 ) {
@@ -111,7 +121,7 @@ public class TransactionFragment extends Fragment {
       }
       //  ketika data gagal diambil
       @Override
-      public void onFailure(Call<ResponseModelTransaction> call, Throwable t) {
+      public void onFailure(@NonNull Call<ResponseModelTransaction> call, @NonNull Throwable t) {
         //  hilangkan progress dialog
         pd.dismiss();
         //  tampilkan pesan
@@ -125,6 +135,6 @@ public class TransactionFragment extends Fragment {
   @Override
   public void onDestroyView() {
     super.onDestroyView();
-    binding = null;
+    com.bsc_bandarlampungsportcenter.databinding.FragmentTransactionBinding binding = null;
   }
 }

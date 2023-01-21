@@ -97,7 +97,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
                   switch (whichConfirm) {
                     case 0:
                       changeTransaction(holder.id.getText().toString(),"lunas");
-                      ((TransactionFragment)fg).tampilData(User.getUserId());
+                      ((TransactionFragment)fg).tampilData(User.getUserId(), "", "menunggu pembayaran");;
                       break;
                   }
                 });
@@ -112,7 +112,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
                   switch (whichConfirm) {
                     case 0:
                       changeTransaction(holder.id.getText().toString(),"ditolak");
-                      ((TransactionFragment)fg).tampilData(User.getUserId());
+                      ((TransactionFragment)fg).tampilData(User.getUserId(), "", "menunggu pembayaran");
                       break;
                   }
                 });
