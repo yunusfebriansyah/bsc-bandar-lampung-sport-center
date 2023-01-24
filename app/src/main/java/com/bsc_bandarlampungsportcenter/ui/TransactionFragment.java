@@ -42,7 +42,7 @@ public class TransactionFragment extends Fragment {
   RecyclerView.LayoutManager lm_data;
   List<TransactionModel> list_transaction = new ArrayList<>();
   Spinner filterStatus;
-  String[] statusTransaction = new String[]{"menunggu pembayaran", "lunas", "didahului", "dibatalkan", "ditolak"};
+  String[] statusTransaction = new String[]{"semua", "menunggu pembayaran", "lunas", "didahului", "dibatalkan", "ditolak"};
 
   TextView txtBlank;
   EditText edtKeyword;

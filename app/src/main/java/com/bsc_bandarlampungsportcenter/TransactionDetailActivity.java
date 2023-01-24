@@ -238,6 +238,7 @@ public class TransactionDetailActivity extends AppCompatActivity {
         Toast.makeText(TransactionDetailActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
         intent = new Intent(TransactionDetailActivity.this, TransactionDetailActivity.class);
         intent.putExtra("id", txtId.getText().toString());
+        intent.putExtra("message", "");
         startActivity(intent);
         finish();
 
