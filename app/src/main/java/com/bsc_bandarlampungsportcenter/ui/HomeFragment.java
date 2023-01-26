@@ -8,10 +8,12 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -48,10 +50,8 @@ public class HomeFragment extends Fragment {
   Intent intent;
   TextView txtLinkGoogleMap, txtPrice, txtBlank;
   ViewPager2 viewPager2;
-  RecyclerView rcv_data;
-  RecyclerView.Adapter ad_data;
-  RecyclerView.LayoutManager lm_data;
-  List<FieldModel> list_field = new ArrayList<>();
+  ConstraintLayout overlayAds;
+  ImageView overlayImage1, overlayImage2, overlayImage3, overlayImage4, imageAds1, imageAds2, imageAds3, imageAds4;
 
   public View onCreateView(@NonNull LayoutInflater inflater,
                            ViewGroup container, Bundle savedInstanceState) {
@@ -61,11 +61,47 @@ public class HomeFragment extends Fragment {
     txtPrice = vw.findViewById(R.id.txt_price);
     viewPager2 = vw.findViewById(R.id.viewPager);
     txtBlank = vw.findViewById(R.id.txt_blank);
-    rcv_data = vw.findViewById(R.id.rcv_data);
+    imageAds1 = vw.findViewById(R.id.img_ads_1);
+    imageAds2 = vw.findViewById(R.id.img_ads_2);
+    imageAds3 = vw.findViewById(R.id.img_ads_3);
+    imageAds4 = vw.findViewById(R.id.img_ads_4);
+    overlayAds = vw.findViewById(R.id.overlay_ads);
+    overlayImage1 = vw.findViewById(R.id.img_overlay_1);
+    overlayImage2 = vw.findViewById(R.id.img_overlay_2);
+    overlayImage3 = vw.findViewById(R.id.img_overlay_3);
+    overlayImage4 = vw.findViewById(R.id.img_overlay_4);
 
     txtLinkGoogleMap.setOnClickListener(view -> {
       intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse(txtLinkGoogleMap.getText().toString()));
       startActivity(intent);
+    });
+
+    overlayAds.setOnClickListener(view -> {
+      overlayImage1.setVisibility(View.GONE);
+      overlayImage2.setVisibility(View.GONE);
+      overlayImage3.setVisibility(View.GONE);
+      overlayImage4.setVisibility(View.GONE);
+      overlayAds.setVisibility(View.GONE);
+    });
+
+    imageAds1.setOnClickListener(view -> {
+      overlayImage1.setVisibility(View.VISIBLE);
+      overlayAds.setVisibility(View.VISIBLE);
+    });
+
+    imageAds2.setOnClickListener(view -> {
+      overlayImage2.setVisibility(View.VISIBLE);
+      overlayAds.setVisibility(View.VISIBLE);
+    });
+
+    imageAds3.setOnClickListener(view -> {
+      overlayImage3.setVisibility(View.VISIBLE);
+      overlayAds.setVisibility(View.VISIBLE);
+    });
+
+    imageAds4.setOnClickListener(view -> {
+      overlayImage4.setVisibility(View.VISIBLE);
+      overlayAds.setVisibility(View.VISIBLE);
     });
 
     Price.setPrice(getActivity());
@@ -96,12 +132,6 @@ public class HomeFragment extends Fragment {
       }
     }, 1000);
 
-    lm_data = new GridLayoutManager(getActivity(), 2);
-
-    rcv_data.setLayoutManager(lm_data);
-
-    tampilData();
-
     if( User.isAdmin() && !User.getIsDeniedYesterday()){
       deniedYesterday();
     }
@@ -127,58 +157,6 @@ public class HomeFragment extends Fragment {
   public void onDestroyView() {
     super.onDestroyView();
     binding = null;
-  }
-
-  public void tampilData ()
-  {
-    //  deklarasi variabel komponen "Progress Dialog"
-    ProgressDialog pd;
-    //  setup progress dialog
-    pd = new ProgressDialog(getActivity());
-    //  progress dialog tidak dapat di cancel
-    pd.setCancelable(false);
-    //  isi teks progress dialog
-    pd.setMessage("Mohon Tunggu ...");
-    //  tampilkan progress dialog
-    pd.show();
-
-    APIRequestField ardData = RetroServer.konekRetrofit().create(APIRequestField.class);
-    Call<ResponseModelField> tampilData = ardData.tampilData();
-
-    //  deskripsi isi variabel "cl"
-    tampilData.enqueue(new Callback<ResponseModelField>() {
-      //  ketika data berhasil diambil
-      @Override
-      public void onResponse(Call<ResponseModelField> call, Response<ResponseModelField> response) {
-        //  tampilkan data ke dalam list
-        list_field = response.body().getData();
-        int count = response.body().getCount();
-        if( count > 0 ) {
-          txtBlank.setVisibility(View.GONE);
-          rcv_data.setVisibility(View.VISIBLE);
-        }else{
-          txtBlank.setVisibility(View.VISIBLE);
-          rcv_data.setVisibility(View.GONE);
-        }
-
-        //  mengisi data adapter dari list
-        ad_data = new FieldAdapter(getContext(), list_field, HomeFragment.this);
-        rcv_data.setAdapter(ad_data);
-        ad_data.notifyDataSetChanged();
-
-        //  tutup progress dialog
-        pd.dismiss();
-      }
-      //  ketika data gagal diambil
-      @Override
-      public void onFailure(Call<ResponseModelField> call, Throwable t) {
-        //  hilangkan progress dialog
-        pd.dismiss();
-        //  tampilkan pesan
-        Toast.makeText(getActivity(), "Data gagal ditampilkan!" + t.getMessage(), Toast.LENGTH_SHORT).show();
-
-      }
-    });
   }
 
   public void deniedYesterday ()
