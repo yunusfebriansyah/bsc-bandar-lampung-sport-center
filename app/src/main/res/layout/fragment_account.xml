@@ -6,13 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".ui.TransactionFragment">
 
+    <Button
+        android:id="@+id/btn_not_login"
+        style="@style/button_primary"
+        android:layout_width="wrap_content"
+        android:text="@string/login"
+        android:layout_marginTop="2dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone"/>
+
     <ScrollView
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:paddingHorizontal="@dimen/padding_horizontal_content"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        android:visibility="gone">
 
         <LinearLayout
             style="@style/base_container_linearlayout">

@@ -55,8 +55,13 @@ public class MainActivity extends AppCompatActivity {
     db = config.getReadableDatabase();
     cursor = db.rawQuery("SELECT * FROM tbl_user",null);
     cursor.moveToFirst();
-    User.setUserId(cursor.getString(0));
-    User.setIsAdmin(cursor.getString(1));
+    if(cursor.getCount() == 1) {
+      User.setUserId(cursor.getString(0));
+      User.setIsAdmin(cursor.getString(1));
+    }else{
+      User.setIsAdmin("0");
+      navView.getMenu().removeItem(R.id.navigation_transaction);
+    }
 
   }
 

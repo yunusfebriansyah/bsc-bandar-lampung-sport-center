@@ -3,6 +3,8 @@ package com.bsc_bandarlampungsportcenter;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Bundle;
@@ -36,6 +38,10 @@ import retrofit2.Response;
 
 public class FieldDetailActivity extends AppCompatActivity {
 
+  DBConfig config;
+  SQLiteDatabase db;
+  Cursor cursor;
+
   Intent intent;
   Bundle bundle;
   ImageView photo;
@@ -50,6 +56,12 @@ public class FieldDetailActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_field_detail);
     getSupportActionBar().hide();
+
+    config = new DBConfig(this);
+
+    db = config.getReadableDatabase();
+    cursor = db.rawQuery("SELECT * FROM tbl_user",null);
+    cursor.moveToFirst();
 
     photo = findViewById(R.id.photo);
     txtId = findViewById(R.id.id);
@@ -76,9 +88,15 @@ public class FieldDetailActivity extends AppCompatActivity {
 
 
     btnBookingNow.setOnClickListener(view -> {
-      intent = new Intent(FieldDetailActivity.this, FieldBookingActivity.class);
-      intent.putExtra("id", id);
-      startActivity(intent);
+      if(cursor.getCount() == 1) {
+        intent = new Intent(FieldDetailActivity.this, FieldBookingActivity.class);
+        intent.putExtra("id", id);
+        startActivity(intent);
+      }else{
+        intent = new Intent(this, LoginActivity.class);
+        intent.putExtra("message", "");
+        startActivity(intent);
+      }
     });
 
     btnSee360.setOnClickListener(view -> {

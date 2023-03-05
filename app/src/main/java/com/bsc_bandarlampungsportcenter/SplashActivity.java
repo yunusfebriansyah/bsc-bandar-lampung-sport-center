@@ -14,8 +14,6 @@ public class SplashActivity extends AppCompatActivity {
   SQLiteDatabase db;
   Cursor cursor;
 
-  Intent intent;
-
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -23,24 +21,18 @@ public class SplashActivity extends AppCompatActivity {
 
     getSupportActionBar().hide();
 
-    intent = new Intent(SplashActivity.this, RegisterActivity.class);
-
     config = new DBConfig(this);
 
     db = config.getReadableDatabase();
     cursor = db.rawQuery("SELECT * FROM tbl_user",null);
     cursor.moveToFirst();
 
-    if(cursor.getCount() == 1) {
-      intent = new Intent(SplashActivity.this, MainActivity.class);
-    }else{
-      intent = new Intent(SplashActivity.this, RegisterActivity.class);
-    }
+//    if(cursor.getCount() == 1)
 
     new Handler().postDelayed(new Runnable(){
       @Override
       public void run() {
-        startActivity(intent);
+        startActivity(new Intent(SplashActivity.this, MainActivity.class));
         finish();
       }
     }, 1000);

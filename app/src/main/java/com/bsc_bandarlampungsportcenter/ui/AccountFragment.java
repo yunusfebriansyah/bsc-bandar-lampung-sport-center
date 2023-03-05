@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ import com.bsc_bandarlampungsportcenter.ChangeProfilePhotoActivity;
 import com.bsc_bandarlampungsportcenter.DBConfig;
 import com.bsc_bandarlampungsportcenter.EditProfileActivity;
 import com.bsc_bandarlampungsportcenter.LoginActivity;
+import com.bsc_bandarlampungsportcenter.MainActivity;
 import com.bsc_bandarlampungsportcenter.R;
 import com.bsc_bandarlampungsportcenter.databinding.FragmentAccountBinding;
 import com.bsc_bandarlampungsportcenter.rest_api.APIRequestUser;
@@ -48,14 +50,16 @@ public class AccountFragment extends Fragment {
 
   TextView txtName, txtUsername, txtEmail, txtCountSuccess, txtCountPending, txtCountFailed, labelTransaction;
   ImageView photoProfile;
+  ScrollView scrollContainer;
 
-  Button btnChangePassword, btnLogout, btnChangeAccount, btnChangePhoto, btnAddAdmin;
+  Button btnChangePassword, btnLogout, btnChangeAccount, btnChangePhoto, btnAddAdmin, btnNotLogin;
 
   public View onCreateView(@NonNull LayoutInflater inflater,
                            ViewGroup container, Bundle savedInstanceState) {
 
     vw = inflater.inflate(R.layout.fragment_account, container, false);
     config = new DBConfig(getContext());
+    db = config.getReadableDatabase();
 
     photoProfile = vw.findViewById(R.id.photo);
     txtName = vw.findViewById(R.id.name);
@@ -65,12 +69,18 @@ public class AccountFragment extends Fragment {
     txtCountPending = vw.findViewById(R.id.count_pending);
     txtCountFailed = vw.findViewById(R.id.count_failed);
     labelTransaction = vw.findViewById(R.id.label_transaction);
+    scrollContainer = vw.findViewById(R.id.container);
 
     btnChangePassword = vw.findViewById(R.id.btn_change_password);
     btnChangeAccount = vw.findViewById(R.id.btn_edit_profile);
     btnLogout = vw.findViewById(R.id.btn_logout);
     btnChangePhoto = vw.findViewById(R.id.btn_change_photo);
     btnAddAdmin = vw.findViewById(R.id.btn_add_admin);
+    btnNotLogin = vw.findViewById(R.id.btn_not_login);
+
+
+    cursor = db.rawQuery("SELECT * FROM tbl_user",null);
+    cursor.moveToFirst();
 
     if( User.isAdmin() ){
       labelTransaction.setText("Rekap Transaksi");
@@ -102,19 +112,35 @@ public class AccountFragment extends Fragment {
 
       db.execSQL("DELETE FROM tbl_user");
 
-      intent = new Intent(getActivity(), LoginActivity.class);
-      intent.putExtra("message", "Logout berhasil.");
+      intent = new Intent(getActivity(), MainActivity.class);
+//      intent.putExtra("message", "Logout berhasil.");
       startActivity(intent);
       getActivity().finish();
     });
 
-    tampilData(User.getUserId());
+    btnNotLogin.setOnClickListener(view -> {
+      intent = new Intent(getActivity(), LoginActivity.class);
+      intent.putExtra("message", "");
+      startActivity(intent);
+    });
+
+    if(cursor.getCount() == 1) {
+      tampilData(User.getUserId());
+    }else{
+      btnNotLogin.setVisibility(View.VISIBLE);
+    }
+
     return vw;
   }
 
   @Override
   public void onResume() {
-    tampilData(User.getUserId());
+//    if(cursor.getCount() == 1) {
+//      tampilData(User.getUserId());
+//      container.setVisibility(View.VISIBLE);
+//    }else{
+//      btnNotLogin.setVisibility(View.VISIBLE);
+//    }
     super.onResume();
   }
 
@@ -148,6 +174,8 @@ public class AccountFragment extends Fragment {
         txtCountSuccess.setText(String.valueOf(data.getCount_success()));
         txtCountPending.setText(String.valueOf(data.getCount_pending()));
         txtCountFailed.setText(String.valueOf(data.getCount_failed()));
+
+        scrollContainer.setVisibility(View.VISIBLE);
 
         //  tutup progress dialog
         pd.dismiss();
